@@ -1,0 +1,41 @@
+# Dockerfile for CoinSensei Deposit Listener
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apk add --no-cache curl
+
+# Copy package files
+COPY deposit-listener-package.json package.json
+COPY package-lock.json* ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy application files
+COPY src/depositListener.improved.ts ./src/
+COPY sql/deposit_transaction_function.sql ./sql/
+COPY config/ ./config/
+
+# Install TypeScript and ts-node for runtime compilation
+RUN npm install -g typescript ts-node
+
+# Create non-root user for security
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S listener -u 1001
+
+# Change ownership of the app directory
+RUN chown -R listener:nodejs /app
+USER listener
+
+# Expose health check port
+EXPOSE 3001
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3001/health || exit 1
+
+# Start the application
+CMD ["npm", "start"] 
