@@ -8,10 +8,10 @@ const { deriveTronAddress } = requireUtil('../../tronAddressFromMnemonic.cjs')
 // pull in CJS modules
 const bip39 = requireCJS('bip39')    as typeof import('bip39')
 const HDKey = requireCJS('hdkey')    as typeof import('hdkey')
-import secp256k1 from 'secp256k1'
+//import secp256k1 from 'secp256k1'
 import pkg from 'js-sha3'
 const { keccak_256 } = pkg
-import bs58check from 'bs58check'
+//import bs58check from 'bs58check'
 
 // lazy TronWeb loader
 let _tronWeb: any = null
