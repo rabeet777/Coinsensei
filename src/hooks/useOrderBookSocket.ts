@@ -18,7 +18,9 @@ export function useOrderBookSocket() {
 
   useEffect(() => {
     // Initialize socket connection
-    const socketInstance = io(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000', {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 
+                   (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000')
+    const socketInstance = io(baseUrl, {
       path: '/socket.io',
     })
 

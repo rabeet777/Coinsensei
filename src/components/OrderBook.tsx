@@ -48,9 +48,9 @@ export default function OrderBook() {
 
   // 2) Subscribe to live updates via Socket.IO
   useEffect(() => {
-    const socket = io(
-      process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
-    )
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 
+                   (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000')
+    const socket = io(baseUrl)
 
     socket.on('connect', () => {
       console.log('OrderBook socket connected:', socket.id)
