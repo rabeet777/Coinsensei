@@ -33,7 +33,8 @@ export default function OrderBook() {
   useEffect(() => {
     async function loadInitialBook() {
       try {
-        const res = await fetch('/api/getOrderBook')
+        const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+        const res = await fetch(`${baseUrl}/api/getOrderBook`)
         const json = await res.json()
         // json.buy / json.sell are arrays of RawOrder
         if (Array.isArray(json.buy) && Array.isArray(json.sell)) {

@@ -245,7 +245,8 @@ export default function SecurityGuard({
   const sendSmsCode = async () => {
     setMethodLoading('sms', true)
     try {
-      const res = await fetch('/api/sms/send', {
+      const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+      const res = await fetch(`${baseUrl}/api/sms/send`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: session?.user?.phone || '' })
@@ -288,7 +289,8 @@ export default function SecurityGuard({
       
       switch (method.id) {
         case 'totp':
-          const totpRes = await fetch('/api/security/verify-totp-withdrawal', {
+          const baseUrl1 = typeof window !== 'undefined' ? window.location.origin : ''
+          const totpRes = await fetch(`${baseUrl1}/api/security/verify-totp-withdrawal`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code: method.code })
@@ -297,7 +299,8 @@ export default function SecurityGuard({
           break
           
         case 'sms':
-          const smsRes = await fetch('/api/sms/verify', {
+          const baseUrl2 = typeof window !== 'undefined' ? window.location.origin : ''
+          const smsRes = await fetch(`${baseUrl2}/api/sms/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code: method.code, userId: session?.user?.id })
@@ -372,7 +375,8 @@ export default function SecurityGuard({
     }
 
     try {
-      const response = await fetch('/api/security/recovery/submit-request', {
+      const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+      const response = await fetch(`${baseUrl}/api/security/recovery/submit-request`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

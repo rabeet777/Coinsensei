@@ -46,7 +46,7 @@ export default function SignupPage() {
 
       // 3) *New:* If Supabase gave us a session (i.e. auto-confirm is ON),
       //    then immediately generate & store a TRC20 address for this user.
-      if (data.session) {
+      if (data.session && data.session.access_token) {
         try {
           const resp = await fetch('/api/trc20/create', {
             method: 'POST',

@@ -94,7 +94,8 @@ export default function TradePage() {
   useEffect(() => {
     if (!session?.user.id) return
 
-    fetch(`/api/getUserOrders?user_id=${session.user.id}`)
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+    fetch(`${baseUrl}/api/getUserOrders?user_id=${session.user.id}`)
       .then(res => res.json())
       .then(json => setOrders(json.orders || []))
       .catch(console.error)
@@ -154,7 +155,8 @@ export default function TradePage() {
 
     setLoading(true)
     try {
-      const res = await fetch('/api/placeOrder', {
+      const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+      const res = await fetch(`${baseUrl}/api/placeOrder`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -207,7 +209,8 @@ export default function TradePage() {
     )
 
     // Then call the API (the watcher will also broadcast if needed)
-    const res = await fetch('/api/cancelOrder', {
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+    const res = await fetch(`${baseUrl}/api/cancelOrder`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ orderId }),
