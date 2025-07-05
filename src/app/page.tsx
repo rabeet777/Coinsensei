@@ -111,12 +111,11 @@ export default function LandingPage() {
         transition={{ duration: 0.6 }}
         className="w-full px-4 sm:px-6 lg:px-8 py-4 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 fixed top-0 z-50 shadow-sm"
       >
-        <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo - Left */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="justify-self-start"
           >
             <Link href="/">
               <CoinsenseiLogo size="xl" showText={false} />
@@ -124,7 +123,7 @@ export default function LandingPage() {
           </motion.div>
 
           {/* Desktop Navigation - Center */}
-          <nav className="hidden lg:flex items-center justify-center gap-8 text-sm font-medium">
+          <nav className="hidden lg:flex items-center gap-8 text-sm font-medium">
             {['Features', 'Payment Methods', 'Security', 'How It Works'].map((item, index) => (
               <motion.div
                 key={item}
@@ -143,7 +142,7 @@ export default function LandingPage() {
           </nav>
 
           {/* Desktop Auth Buttons - Right */}
-          <div className="hidden lg:flex items-center gap-4 justify-self-end">
+          <div className="hidden lg:flex items-center gap-4">
             {user ? (
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button asChild variant="default" size="sm" className="btn-shimmer btn-glow shadow-lg">
@@ -154,14 +153,17 @@ export default function LandingPage() {
                 </Button>
               </motion.div>
             ) : (
-              <div className="flex items-center gap-3">
-                <motion.div whileHover={{ y: -2 }}>
-                  <Link href="/auth/login" className="text-blue-600 hover:text-blue-700 font-semibold transition-colors">
-                    Login
-                  </Link>
+              <div className="flex items-center gap-6">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button asChild variant="outline" size="sm" className="border-2 border-blue-500/60 text-blue-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 hover:text-white hover:border-blue-600 transition-all duration-300 shadow-lg hover:shadow-blue-500/30 backdrop-blur-sm bg-white/90 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 font-semibold px-7 py-2.5">
+                    <Link href="/auth/login" className="flex items-center gap-2">
+                      <Lock className="h-4 w-4" />
+                      Login
+                    </Link>
+                  </Button>
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button asChild size="sm" className="btn-shimmer btn-glow shadow-lg">
+                  <Button asChild size="sm" className="btn-shimmer btn-glow shadow-lg px-8 py-2.5 font-semibold">
                     <Link href="/auth/signup">Sign Up</Link>
                   </Button>
                 </motion.div>
@@ -171,7 +173,7 @@ export default function LandingPage() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors justify-self-end"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -240,7 +242,7 @@ export default function LandingPage() {
               >
                 <Badge variant="secondary" className="px-6 py-3 text-base font-medium text-blue-600 bg-blue-100 border-blue-200">
                   <Star className="mr-2 h-4 w-4" />
-                  🚀 Pakistan's Most Trusted P2P Platform
+                  Pakistan's Most Trusted P2P Platform
                 </Badge>
               </motion.div>
               
@@ -585,9 +587,18 @@ export default function LandingPage() {
         </section>
 
         {/* Security Section */}
-        <section id="security" className="py-12 lg:py-16 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="security" className="py-12 lg:py-16 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-10 left-10 w-2 h-2 bg-blue-200 rounded-full animate-pulse opacity-30"></div>
+            <div className="absolute top-20 right-20 w-1 h-1 bg-purple-200 rounded-full animate-ping opacity-20"></div>
+            <div className="absolute top-40 left-1/4 w-1.5 h-1.5 bg-indigo-200 rounded-full animate-bounce opacity-25"></div>
+            <div className="absolute top-60 right-1/3 w-1 h-1 bg-blue-200 rounded-full animate-pulse opacity-30"></div>
+            <div className="absolute top-80 left-1/2 w-2 h-2 bg-purple-200 rounded-full animate-ping opacity-20"></div>
+            <div className="absolute top-32 right-1/4 w-1.5 h-1.5 bg-indigo-200 rounded-full animate-bounce opacity-25"></div>
+            <div className="absolute top-96 left-1/3 w-1 h-1 bg-blue-200 rounded-full animate-pulse opacity-30"></div>
+            <div className="absolute top-64 right-1/2 w-2 h-2 bg-purple-200 rounded-full animate-ping opacity-20"></div>
+          </div>
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -595,11 +606,11 @@ export default function LandingPage() {
               transition={{ duration: 0.8 }}
               className="text-center mb-12 lg:mb-16"
             >
-              <Badge variant="secondary" className="mb-4 bg-white/10 text-white border-white/20">Maximum Security</Badge>
+              <Badge variant="outline" className="mb-4 text-sm font-medium border-blue-200 text-blue-600 bg-blue-50">Maximum Security</Badge>
               <h2 className="text-3xl lg:text-5xl font-bold mb-6">
-                Your Security is Our <span className="text-shimmer-light">Priority</span>
+                Your Security is Our <span className="text-shimmer">Priority</span>
               </h2>
-              <p className="text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto">
+              <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
                 Advanced security measures protect your assets and personal information at every step.
               </p>
             </motion.div>
@@ -615,32 +626,38 @@ export default function LandingPage() {
                 {
                   icon: Lock,
                   title: "256-bit Encryption",
-                  description: "Military-grade encryption protects all your data and transactions"
+                  description: "Military-grade encryption protects all your data and transactions",
+                  color: "blue"
                 },
                 {
                   icon: Shield,
                   title: "Cold Storage",
-                  description: "99% of funds stored offline in secure, insured cold wallets"
+                  description: "99% of funds stored offline in secure, insured cold wallets",
+                  color: "green"
                 },
                 {
                   icon: Eye,
                   title: "2FA Authentication",
-                  description: "Two-factor authentication adds an extra layer of account security"
+                  description: "Two-factor authentication adds an extra layer of account security",
+                  color: "purple"
                 },
                 {
                   icon: UserCheck,
                   title: "KYC Verification",
-                  description: "Identity verification ensures a trusted trading community"
+                  description: "Identity verification ensures a trusted trading community",
+                  color: "orange"
                 },
                 {
                   icon: Blocks,
                   title: "Smart Escrow",
-                  description: "Automated escrow system protects both buyers and sellers"
+                  description: "Automated escrow system protects both buyers and sellers",
+                  color: "red"
                 },
                 {
                   icon: Globe,
                   title: "Regulatory Compliance",
-                  description: "Full compliance with Pakistani financial regulations and laws"
+                  description: "Full compliance with Pakistani financial regulations and laws",
+                  color: "indigo"
                 }
               ].map((security, index) => (
                 <motion.div 
@@ -649,16 +666,20 @@ export default function LandingPage() {
                   whileHover={{ scale: 1.05, y: -5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full">
-                    <motion.div 
-                      whileHover={{ scale: 1.1 }}
-                      className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4"
-                    >
-                      <security.icon className="h-6 w-6 text-blue-400" />
-                    </motion.div>
-                    <h3 className="text-xl font-bold mb-3">{security.title}</h3>
-                    <p className="text-gray-300">{security.description}</p>
-                  </div>
+                  <Card className="h-full hover:shadow-xl transition-all duration-300 border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+                    <CardHeader>
+                      <motion.div 
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        className={`w-12 h-12 bg-${security.color}-100 rounded-xl flex items-center justify-center mb-4`}
+                      >
+                        <security.icon className={`h-6 w-6 text-${security.color}-600`} />
+                      </motion.div>
+                      <CardTitle className="text-xl font-bold text-gray-900">{security.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-600">{security.description}</p>
+                    </CardContent>
+                  </Card>
                 </motion.div>
               ))}
             </motion.div>
@@ -666,20 +687,31 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-12 lg:py-16 bg-gradient-to-r from-blue-600 to-purple-600 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
-          <div className="relative max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <section className="py-12 lg:py-16 bg-gradient-to-br from-blue-50 via-white to-gray-50 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-8 left-8 w-3 h-3 bg-blue-100 rounded-full animate-pulse opacity-20"></div>
+            <div className="absolute top-16 right-16 w-2 h-2 bg-purple-100 rounded-full animate-bounce opacity-15"></div>
+            <div className="absolute top-24 left-1/3 w-2.5 h-2.5 bg-indigo-100 rounded-full animate-ping opacity-25"></div>
+            <div className="absolute top-32 right-1/4 w-1.5 h-1.5 bg-blue-100 rounded-full animate-pulse opacity-20"></div>
+            <div className="absolute top-40 left-1/2 w-2 h-2 bg-purple-100 rounded-full animate-bounce opacity-15"></div>
+            <div className="absolute top-48 right-1/3 w-3 h-3 bg-indigo-100 rounded-full animate-ping opacity-25"></div>
+            <div className="absolute top-56 left-1/4 w-1.5 h-1.5 bg-blue-100 rounded-full animate-pulse opacity-20"></div>
+            <div className="absolute top-64 right-1/2 w-2.5 h-2.5 bg-purple-100 rounded-full animate-bounce opacity-15"></div>
+            <div className="absolute top-72 left-1/3 w-2 h-2 bg-indigo-100 rounded-full animate-ping opacity-25"></div>
+            <div className="absolute top-80 right-1/4 w-1.5 h-1.5 bg-blue-100 rounded-full animate-pulse opacity-20"></div>
+          </div>
+          <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="text-white"
+              className="text-gray-900"
             >
               <h2 className="text-3xl lg:text-5xl font-bold mb-6">
-                Ready to Start Trading?
+                Ready to <span className="text-shimmer">Start Trading?</span>
               </h2>
-              <p className="text-lg lg:text-xl mb-10 opacity-90">
+              <p className="text-lg lg:text-xl mb-10 text-gray-600">
                 Join thousands of traders who trust COINSENSEI for their crypto needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -701,7 +733,7 @@ export default function LandingPage() {
                       </Button>
                     </motion.div>
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Button asChild size="lg" variant="outline" className="py-4 px-8 text-lg border-white text-white hover:bg-white hover:text-blue-600 shadow-xl">
+                      <Button asChild size="lg" className="py-4 px-8 text-lg btn-shimmer btn-glow shadow-xl font-semibold">
                         <Link href="/auth/login">Login to Trade</Link>
                       </Button>
                     </motion.div>
@@ -714,46 +746,133 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-12 lg:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="md:col-span-2">
-              <Link href="/" className="mb-4 block">
-                <CoinsenseiLogo size="xl" showText={false} variant="white" />
-              </Link>
-              <p className="text-gray-400 mb-4 max-w-md">
-                Pakistan's most trusted P2P crypto exchange platform. Trade USDT safely with multiple payment options.
-              </p>
-              <div className="flex gap-4">
-                <Badge variant="outline" className="text-gray-400 border-gray-600">
-                  🇵🇰 Made in Pakistan
-                </Badge>
-              </div>
+      <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-300 py-16 lg:py-20 relative overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-10 w-1 h-1 bg-blue-400 rounded-full animate-pulse opacity-10"></div>
+          <div className="absolute top-20 right-20 w-0.5 h-0.5 bg-purple-400 rounded-full animate-ping opacity-15"></div>
+          <div className="absolute top-40 left-1/4 w-1 h-1 bg-indigo-400 rounded-full animate-bounce opacity-10"></div>
+          <div className="absolute top-60 right-1/3 w-0.5 h-0.5 bg-blue-400 rounded-full animate-pulse opacity-15"></div>
+          <div className="absolute top-80 left-1/2 w-1 h-1 bg-purple-400 rounded-full animate-ping opacity-10"></div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            {/* Company Info */}
+            <div className="lg:col-span-2">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <Link href="/" className="mb-6 block">
+                  <CoinsenseiLogo size="xl" showText={false} variant="white" />
+                </Link>
+                <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
+                  Pakistan's most trusted P2P crypto exchange platform. Trade USDT safely with multiple payment options including JazzCash, EasyPaisa, Bank Transfer & Raast.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Badge variant="outline" className="text-blue-400 border-blue-500/30 bg-blue-500/10">
+                    🇵🇰 Made in Pakistan
+                  </Badge>
+                  <Badge variant="outline" className="text-green-400 border-green-500/30 bg-green-500/10">
+                    🔒 Bank-Grade Security
+                  </Badge>
+                  <Badge variant="outline" className="text-purple-400 border-purple-500/30 bg-purple-500/10">
+                    ⚡ Instant Settlements
+                  </Badge>
+                </div>
+              </motion.div>
             </div>
             
-            <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/auth/signup" className="hover:text-white transition-colors">Sign Up</Link></li>
-                <li><Link href="/auth/login" className="hover:text-white transition-colors">Login</Link></li>
-                <li><Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link></li>
-                <li><Link href="/support" className="hover:text-white transition-colors">Support</Link></li>
+            {/* Quick Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <h4 className="font-bold text-lg mb-6 text-white flex items-center gap-2">
+                <ChevronRight className="h-4 w-4 text-blue-400" />
+                Quick Links
+              </h4>
+              <ul className="space-y-3">
+                {[
+                  { href: "/auth/signup", label: "Sign Up", icon: "🚀" },
+                  { href: "/auth/login", label: "Login", icon: "🔐" },
+                  { href: "/dashboard", label: "Dashboard", icon: "📊" },
+                  { href: "/support", label: "Support", icon: "💬" }
+                ].map((link) => (
+                  <li key={link.href}>
+                    <Link 
+                      href={link.href} 
+                      className="flex items-center gap-2 text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 group"
+                    >
+                      <span className="text-sm">{link.icon}</span>
+                      <span className="text-sm group-hover:text-blue-400">{link.label}</span>
+                    </Link>
+                  </li>
+                ))}
               </ul>
-            </div>
+            </motion.div>
             
-            <div>
-              <h4 className="font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
-                <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/compliance" className="hover:text-white transition-colors">Compliance</Link></li>
+            {/* Legal */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h4 className="font-bold text-lg mb-6 text-white flex items-center gap-2">
+                <Shield className="h-4 w-4 text-blue-400" />
+                Legal & Security
+              </h4>
+              <ul className="space-y-3">
+                {[
+                  { href: "/terms", label: "Terms of Service", icon: "📋" },
+                  { href: "/privacy", label: "Privacy Policy", icon: "🔒" },
+                  { href: "/compliance", label: "Compliance", icon: "✅" },
+                  { href: "/kyc", label: "KYC Policy", icon: "🆔" }
+                ].map((link) => (
+                  <li key={link.href}>
+                    <Link 
+                      href={link.href} 
+                      className="flex items-center gap-2 text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1 group"
+                    >
+                      <span className="text-sm">{link.icon}</span>
+                      <span className="text-sm group-hover:text-blue-400">{link.label}</span>
+                    </Link>
+                  </li>
+                ))}
               </ul>
-            </div>
+            </motion.div>
           </div>
           
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
-            <p>© {new Date().getFullYear()} COINSENSEI. All rights reserved. | Licensed and regulated in Pakistan.</p>
-          </div>
+          {/* Bottom Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="border-t border-gray-800/50 mt-16 pt-8"
+          >
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-sm text-gray-400">
+                © {new Date().getFullYear()} COINSENSEI. All rights reserved.
+              </p>
+              <div className="flex items-center gap-6 text-sm text-gray-400">
+                <span className="flex items-center gap-2">
+                  <Shield className="h-3 w-3 text-green-400" />
+                  Licensed in Pakistan
+                </span>
+                <span className="flex items-center gap-2">
+                  <Lock className="h-3 w-3 text-blue-400" />
+                  SSL Secured
+                </span>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </footer>
     </>

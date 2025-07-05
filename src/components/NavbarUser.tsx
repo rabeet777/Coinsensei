@@ -156,7 +156,7 @@ export default function NavbarUser({
             className="flex items-center gap-2"
           >
             <Link href="/user/dashboard">
-              <CoinsenseiLogo size="lg" />
+              <CoinsenseiLogo size="xl" />
             </Link>
           </motion.div>
 
