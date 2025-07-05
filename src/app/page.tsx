@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CoinsenseiLogo } from '@/components/ui/coinsensei-logo';
+import { BubbleBackground } from '@/components/BubbleBackground';
 import { supabase } from 'lib/supabase';
 import {
   ChevronRight,
@@ -37,11 +38,15 @@ import {
   Clock,
   Award,
   HeadphonesIcon,
+  Menu,
+  X,
+  Sparkles
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function LandingPage() {
   const [user, setUser] = useState<any>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -54,7 +59,7 @@ export default function LandingPage() {
   }, []);
 
   const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
+    initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6 }
   };
@@ -65,6 +70,18 @@ export default function LandingPage() {
         staggerChildren: 0.1
       }
     }
+  };
+
+  const slideIn = {
+    initial: { opacity: 0, x: -30 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.6 }
+  };
+
+  const scaleIn = {
+    initial: { opacity: 0, scale: 0.8 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { duration: 0.6 }
   };
 
   return (
@@ -87,130 +104,251 @@ export default function LandingPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      {/* Header */}
-      <header className="w-full px-6 py-4 shadow bg-white/95 backdrop-blur-sm fixed top-0 z-50 flex justify-between items-center border-b">
-        <Link href="/">
-          <CoinsenseiLogo size="lg" />
-        </Link>
-        <nav className="hidden md:flex gap-8 text-sm font-medium">
-          <Link href="/#features" className="hover:text-blue-600 transition-colors">
-            Features
-          </Link>
-          <Link href="/#payment-methods" className="hover:text-blue-600 transition-colors">
-            Payment Methods
-          </Link>
-          <Link href="/#security" className="hover:text-blue-600 transition-colors">
-            Security
-          </Link>
-          <Link href="/#how-it-works" className="hover:text-blue-600 transition-colors">
-            How It Works
-          </Link>
-          {user ? (
-            <Button asChild variant="default" size="sm">
-              <Link href="/dashboard">Dashboard</Link>
-            </Button>
-          ) : (
-            <div className="flex gap-3">
-              <Link href="/auth/login" className="text-blue-600 hover:text-blue-700 font-semibold">
-                Login
-          </Link>
-              <Button asChild size="sm">
-                <Link href="/auth/signup">Sign Up</Link>
-              </Button>
-            </div>
+      {/* Enhanced Header */}
+      <motion.header 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full px-4 sm:px-6 lg:px-8 py-4 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 fixed top-0 z-50 shadow-sm"
+      >
+        <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
+          {/* Logo - Left */}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="justify-self-start"
+          >
+            <Link href="/">
+              <CoinsenseiLogo size="xl" showText={false} />
+            </Link>
+          </motion.div>
+
+          {/* Desktop Navigation - Center */}
+          <nav className="hidden lg:flex items-center justify-center gap-8 text-sm font-medium">
+            {['Features', 'Payment Methods', 'Security', 'How It Works'].map((item, index) => (
+              <motion.div
+                key={item}
+                whileHover={{ y: -2 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Link 
+                  href={`/#${item.toLowerCase().replace(' ', '-')}`} 
+                  className="hover:text-blue-600 transition-colors relative group"
+                >
+                  {item}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+              </motion.div>
+            ))}
+          </nav>
+
+          {/* Desktop Auth Buttons - Right */}
+          <div className="hidden lg:flex items-center gap-4 justify-self-end">
+            {user ? (
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button asChild variant="default" size="sm" className="btn-shimmer btn-glow shadow-lg">
+                  <Link href="/dashboard">
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    Dashboard
+                  </Link>
+                </Button>
+              </motion.div>
+            ) : (
+              <div className="flex items-center gap-3">
+                <motion.div whileHover={{ y: -2 }}>
+                  <Link href="/auth/login" className="text-blue-600 hover:text-blue-700 font-semibold transition-colors">
+                    Login
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button asChild size="sm" className="btn-shimmer btn-glow shadow-lg">
+                    <Link href="/auth/signup">Sign Up</Link>
+                  </Button>
+                </motion.div>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors justify-self-end"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden mt-4 py-4 border-t border-gray-200"
+            >
+              <div className="flex flex-col space-y-4">
+                {['Features', 'Payment Methods', 'Security', 'How It Works'].map((item) => (
+                  <Link
+                    key={item}
+                    href={`/#${item.toLowerCase().replace(' ', '-')}`}
+                    className="text-gray-700 hover:text-blue-600 transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item}
+                  </Link>
+                ))}
+                <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
+                  {user ? (
+                    <Button asChild className="btn-shimmer">
+                      <Link href="/dashboard">Dashboard</Link>
+                    </Button>
+                  ) : (
+                    <>
+                      <Button asChild variant="outline">
+                        <Link href="/auth/login">Login</Link>
+                      </Button>
+                      <Button asChild className="btn-shimmer">
+                        <Link href="/auth/signup">Sign Up</Link>
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </motion.div>
           )}
-        </nav>
-      </header>
+        </AnimatePresence>
+      </motion.header>
 
       <main className="pt-20">
-          {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
-          <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden min-h-[90vh] flex items-center bg-gradient-to-br from-blue-50 via-white to-gray-50">
+          <BubbleBackground />
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-              className="text-center max-w-4xl mx-auto"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center max-w-5xl mx-auto"
             >
-              <div className="flex justify-center mb-6">
-                <Badge variant="secondary" className="px-4 py-2 text-blue-600 bg-blue-100">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="flex justify-center mb-8"
+              >
+                <Badge variant="secondary" className="px-6 py-3 text-base font-medium text-blue-600 bg-blue-100 border-blue-200">
+                  <Star className="mr-2 h-4 w-4" />
                   🚀 Pakistan's Most Trusted P2P Platform
                 </Badge>
-              </div>
+              </motion.div>
               
-              <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8">
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight mb-8 leading-tight">
+                <motion.span 
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                  className="text-shimmer inline-block"
+                >
                   Trade Crypto
-                </span>
+                </motion.span>
                 <br />
-                <span className="text-gray-900">The Smart Way</span>
+                <motion.span 
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                  className="text-gray-900"
+                >
+                  The Smart Way
+                </motion.span>
               </h1>
 
-              <p className="text-xl lg:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
-                Experience seamless P2P crypto trading with instant PKR settlements through 
-                <span className="font-semibold text-blue-600"> JazzCash, EasyPaisa, Bank Transfer & Raast</span>
-              </p>
+              <motion.p 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+                className="text-lg sm:text-xl lg:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed"
+              >
+                Experience seamless P2P crypto trading with instant PKR settlements through{' '}
+                <span className="font-semibold text-blue-600">JazzCash, EasyPaisa, Bank Transfer & Raast</span>
+              </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto"
+                transition={{ delay: 1.0, duration: 0.8 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto mb-16"
               >
                 {user ? (
-                  <Button asChild size="lg" className="py-4 px-8 text-lg">
-                    <Link href="/dashboard">
-                      Go to Trading <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                ) : (
-                  <>
-                    <Button asChild size="lg" className="py-4 px-8 text-lg">
-                      <Link href="/auth/signup">
-                        Start Trading <ArrowRight className="ml-2 h-5 w-5" />
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button asChild size="lg" className="py-4 px-8 text-lg btn-shimmer btn-glow shadow-xl">
+                      <Link href="/dashboard">
+                        Go to Trading <ArrowRight className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" size="lg" className="py-4 px-8 text-lg">
-                      <Link href="#how-it-works">Learn How</Link>
-                    </Button>
+                  </motion.div>
+                ) : (
+                  <>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button asChild size="lg" className="py-4 px-8 text-lg btn-shimmer btn-glow shadow-xl">
+                        <Link href="/auth/signup">
+                          Start Trading <ArrowRight className="ml-2 h-5 w-5" />
+                        </Link>
+                      </Button>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button asChild variant="outline" size="lg" className="py-4 px-8 text-lg border-2 hover:bg-gray-50">
+                        <Link href="#how-it-works">Learn How</Link>
+                      </Button>
+                    </motion.div>
                   </>
                 )}
               </motion.div>
 
-              {/* Trust Indicators */}
+              {/* Enhanced Trust Indicators */}
               <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="mt-16 flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2, duration: 0.8 }}
+                className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto"
               >
-                <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4" />
-                  <span>50,000+ Active Users</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <DollarSign className="h-4 w-4" />
-                  <span>₨2B+ Monthly Volume</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="h-4 w-4" />
-                  <span>Bank-Grade Security</span>
-                </div>
+                {[
+                  { icon: Users, text: "50,000+ Active Users", color: "blue" },
+                  { icon: DollarSign, text: "₨2B+ Monthly Volume", color: "green" },
+                  { icon: Shield, text: "Bank-Grade Security", color: "purple" }
+                ].map((item, index) => (
+                  <motion.div
+                    key={item.text}
+                    whileHover={{ scale: 1.05 }}
+                    className="flex items-center justify-center gap-3 p-4 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-sm"
+                  >
+                    <div className={`w-12 h-12 rounded-full bg-${item.color}-100 flex items-center justify-center`}>
+                      <item.icon className={`h-6 w-6 text-${item.color}-600`} />
+                    </div>
+                    <span className="font-medium text-gray-700">{item.text}</span>
+                  </motion.div>
+                ))}
               </motion.div>
             </motion.div>
           </div>
         </section>
 
         {/* Payment Methods Section */}
-        <section id="payment-methods" className="py-20 bg-white">
+        <section id="payment-methods" className="py-12 lg:py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div {...fadeInUp} className="text-center mb-16">
-              <Badge variant="outline" className="mb-4">Payment Solutions</Badge>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                Multiple <span className="text-blue-600">Payment Options</span>
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-12 lg:mb-16"
+            >
+              <Badge variant="outline" className="mb-4 text-sm font-medium">Payment Solutions</Badge>
+              <h2 className="text-3xl lg:text-5xl font-bold mb-6">
+                Multiple <span className="text-shimmer">Payment Options</span>
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
                 Trade with your preferred payment method. Instant settlements and competitive rates guaranteed.
               </p>
             </motion.div>
@@ -220,7 +358,7 @@ export default function LandingPage() {
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
-              className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
             >
               {[
                 {
@@ -252,21 +390,30 @@ export default function LandingPage() {
                   features: ["Government Backed", "Ultra Fast", "Most Secure"]
                 }
               ].map((method, index) => (
-                <motion.div key={method.name} variants={fadeInUp}>
-                  <Card className="h-full hover:shadow-xl transition-all duration-300 group">
-                    <CardHeader>
-                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${method.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                <motion.div 
+                  key={method.name} 
+                  variants={fadeInUp}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <Card className="h-full hover:shadow-2xl transition-all duration-300 group border-0 shadow-lg">
+                    <CardHeader className="text-center">
+                      <motion.div 
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.6 }}
+                        className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${method.color} flex items-center justify-center mx-auto mb-4 shadow-lg`}
+                      >
                         <method.icon className="h-8 w-8 text-white" />
-                      </div>
-                      <CardTitle className="text-xl">{method.name}</CardTitle>
-                      <CardDescription>{method.description}</CardDescription>
+                      </motion.div>
+                      <CardTitle className="text-xl font-bold">{method.name}</CardTitle>
+                      <CardDescription className="text-gray-600">{method.description}</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <ul className="space-y-2">
+                      <ul className="space-y-3">
                         {method.features.map((feature) => (
-                          <li key={feature} className="flex items-center gap-2 text-sm">
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                            {feature}
+                          <li key={feature} className="flex items-center gap-3 text-sm">
+                            <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                            <span className="text-gray-700">{feature}</span>
                           </li>
                         ))}
                       </ul>
@@ -279,14 +426,20 @@ export default function LandingPage() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-20 bg-gray-50">
+        <section id="features" className="py-12 lg:py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div {...fadeInUp} className="text-center mb-16">
-              <Badge variant="outline" className="mb-4">Platform Features</Badge>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                Why Choose <span className="text-blue-600">COINSENSEI</span>?
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-12 lg:mb-16"
+            >
+              <Badge variant="outline" className="mb-4 text-sm font-medium">Platform Features</Badge>
+              <h2 className="text-3xl lg:text-5xl font-bold mb-6">
+                Why Choose <span className="text-shimmer">COINSENSEI</span>?
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
                 Experience the future of P2P crypto trading with our advanced features and unmatched security.
               </p>
             </motion.div>
@@ -296,7 +449,7 @@ export default function LandingPage() {
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
               {[
                 {
@@ -336,13 +489,21 @@ export default function LandingPage() {
                   color: "indigo"
                 }
               ].map((feature, index) => (
-                <motion.div key={feature.title} variants={fadeInUp}>
-                  <Card className="h-full hover:shadow-lg transition-all duration-300 border-0 shadow-md">
+                <motion.div 
+                  key={feature.title} 
+                  variants={fadeInUp}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <Card className="h-full hover:shadow-lg transition-all duration-300 border-0 shadow-md bg-white">
                     <CardHeader>
-                      <div className={`w-12 h-12 rounded-xl bg-${feature.color}-100 flex items-center justify-center mb-4`}>
+                      <motion.div 
+                        whileHover={{ scale: 1.1 }}
+                        className={`w-12 h-12 rounded-xl bg-${feature.color}-100 flex items-center justify-center mb-4`}
+                      >
                         <feature.icon className={`h-6 w-6 text-${feature.color}-600`} />
-                      </div>
-                      <CardTitle className="text-xl">{feature.title}</CardTitle>
+                      </motion.div>
+                      <CardTitle className="text-xl font-bold">{feature.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-gray-600">{feature.description}</p>
@@ -355,12 +516,18 @@ export default function LandingPage() {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" className="py-20 bg-white">
+        <section id="how-it-works" className="py-12 lg:py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div {...fadeInUp} className="text-center mb-16">
-              <Badge variant="outline" className="mb-4">Simple Process</Badge>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                Start Trading in <span className="text-blue-600">3 Easy Steps</span>
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-12 lg:mb-16"
+            >
+              <Badge variant="outline" className="mb-4 text-sm font-medium">Simple Process</Badge>
+              <h2 className="text-3xl lg:text-5xl font-bold mb-6">
+                Start Trading in <span className="text-shimmer">3 Easy Steps</span>
               </h2>
             </motion.div>
 
@@ -369,7 +536,7 @@ export default function LandingPage() {
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
-              className="grid md:grid-cols-3 gap-8"
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12"
             >
               {[
                 {
@@ -391,12 +558,21 @@ export default function LandingPage() {
                   icon: RefreshCw
                 }
               ].map((step, index) => (
-                <motion.div key={step.step} variants={fadeInUp} className="text-center">
+                <motion.div 
+                  key={step.step} 
+                  variants={scaleIn}
+                  whileHover={{ scale: 1.05 }}
+                  className="text-center group"
+                >
                   <div className="relative mb-8">
-                    <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <motion.div 
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.8 }}
+                      className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow"
+                    >
                       <step.icon className="h-10 w-10 text-white" />
-                    </div>
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    </motion.div>
+                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md">
                       {step.step}
                     </div>
                   </div>
@@ -409,14 +585,21 @@ export default function LandingPage() {
         </section>
 
         {/* Security Section */}
-        <section id="security" className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div {...fadeInUp} className="text-center mb-16">
-              <Badge variant="secondary" className="mb-4 bg-white/10 text-white">Maximum Security</Badge>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                Your Security is Our <span className="text-blue-400">Priority</span>
+        <section id="security" className="py-12 lg:py-16 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-12 lg:mb-16"
+            >
+              <Badge variant="secondary" className="mb-4 bg-white/10 text-white border-white/20">Maximum Security</Badge>
+              <h2 className="text-3xl lg:text-5xl font-bold mb-6">
+                Your Security is Our <span className="text-shimmer-light">Priority</span>
               </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              <p className="text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto">
                 Advanced security measures protect your assets and personal information at every step.
               </p>
             </motion.div>
@@ -426,7 +609,7 @@ export default function LandingPage() {
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
               {[
                 {
@@ -460,11 +643,19 @@ export default function LandingPage() {
                   description: "Full compliance with Pakistani financial regulations and laws"
                 }
               ].map((security, index) => (
-                <motion.div key={security.title} variants={fadeInUp}>
-                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                    <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
+                <motion.div 
+                  key={security.title} 
+                  variants={fadeInUp}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 h-full">
+                    <motion.div 
+                      whileHover={{ scale: 1.1 }}
+                      className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4"
+                    >
                       <security.icon className="h-6 w-6 text-blue-400" />
-                    </div>
+                    </motion.div>
                     <h3 className="text-xl font-bold mb-3">{security.title}</h3>
                     <p className="text-gray-300">{security.description}</p>
                   </div>
@@ -475,47 +666,60 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
-          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <motion.div {...fadeInUp} className="text-white">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+        <section className="py-12 lg:py-16 bg-gradient-to-r from-blue-600 to-purple-600 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+          <div className="relative max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-white"
+            >
+              <h2 className="text-3xl lg:text-5xl font-bold mb-6">
                 Ready to Start Trading?
               </h2>
-              <p className="text-xl mb-10 opacity-90">
+              <p className="text-lg lg:text-xl mb-10 opacity-90">
                 Join thousands of traders who trust COINSENSEI for their crypto needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {user ? (
-                  <Button asChild size="lg" variant="secondary" className="py-4 px-8 text-lg">
-                  <Link href="/dashboard">
-                      Go to Dashboard <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              ) : (
-                <>
-                    <Button asChild size="lg" variant="secondary" className="py-4 px-8 text-lg">
-                    <Link href="/auth/signup">
-                        Create Free Account <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                    <Button asChild size="lg" variant="outline" className="py-4 px-8 text-lg border-white text-white hover:bg-white hover:text-blue-600">
-                      <Link href="/auth/login">Login to Trade</Link>
-                  </Button>
-                </>
-              )}
+                {user ? (
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button asChild size="lg" variant="secondary" className="py-4 px-8 text-lg bg-white text-blue-600 hover:bg-gray-100 shadow-xl btn-glow">
+                      <Link href="/dashboard">
+                        Go to Dashboard <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </Button>
+                  </motion.div>
+                ) : (
+                  <>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button asChild size="lg" variant="secondary" className="py-4 px-8 text-lg bg-white text-blue-600 hover:bg-gray-100 shadow-xl btn-glow">
+                        <Link href="/auth/signup">
+                          Create Free Account <ArrowRight className="ml-2 h-5 w-5" />
+                        </Link>
+                      </Button>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button asChild size="lg" variant="outline" className="py-4 px-8 text-lg border-white text-white hover:bg-white hover:text-blue-600 shadow-xl">
+                        <Link href="/auth/login">Login to Trade</Link>
+                      </Button>
+                    </motion.div>
+                  </>
+                )}
               </div>
             </motion.div>
-        </div>
+          </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-16">
+      <footer className="bg-gray-900 text-gray-300 py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="col-span-2">
-              <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 block">
-                COINSENSEI
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="md:col-span-2">
+              <Link href="/" className="mb-4 block">
+                <CoinsenseiLogo size="xl" showText={false} variant="white" />
               </Link>
               <p className="text-gray-400 mb-4 max-w-md">
                 Pakistan's most trusted P2P crypto exchange platform. Trade USDT safely with multiple payment options.
@@ -530,19 +734,19 @@ export default function LandingPage() {
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/auth/signup" className="hover:text-white">Sign Up</Link></li>
-                <li><Link href="/auth/login" className="hover:text-white">Login</Link></li>
-                <li><Link href="/dashboard" className="hover:text-white">Dashboard</Link></li>
-                <li><Link href="/support" className="hover:text-white">Support</Link></li>
+                <li><Link href="/auth/signup" className="hover:text-white transition-colors">Sign Up</Link></li>
+                <li><Link href="/auth/login" className="hover:text-white transition-colors">Login</Link></li>
+                <li><Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link></li>
+                <li><Link href="/support" className="hover:text-white transition-colors">Support</Link></li>
               </ul>
             </div>
             
             <div>
               <h4 className="font-semibold mb-4">Legal</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/terms" className="hover:text-white">Terms of Service</Link></li>
-                <li><Link href="/privacy" className="hover:text-white">Privacy Policy</Link></li>
-                <li><Link href="/compliance" className="hover:text-white">Compliance</Link></li>
+                <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
+                <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/compliance" className="hover:text-white transition-colors">Compliance</Link></li>
               </ul>
             </div>
           </div>
