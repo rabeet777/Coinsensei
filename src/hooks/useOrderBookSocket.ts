@@ -18,15 +18,29 @@ export function useOrderBookSocket() {
 
   useEffect(() => {
     // Initialize socket connection
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 
-                   (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000')
-    const socketInstance = io(baseUrl, {
+    const isDevelopment = process.env.NODE_ENV === 'development'
+    const socketUrl = isDevelopment 
+      ? 'http://localhost:3000'
+      : 'wss://rabeet777-workers.hf.space'
+
+    const socketInstance = io(socketUrl, {
       path: '/socket.io',
+      transports: ['websocket'],
+      secure: !isDevelopment
     })
 
     // Listen for order book updates
     socketInstance.on('orderBookUpdate', (data: Order[]) => {
       setOrderBook(data)
+    })
+
+    // Add connection status logging
+    socketInstance.on('connect', () => {
+      console.log('Socket connected successfully')
+    })
+
+    socketInstance.on('connect_error', (error) => {
+      console.error('Socket connection error:', error)
     })
 
     setSocket(socketInstance)
