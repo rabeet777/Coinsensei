@@ -122,7 +122,7 @@ export default function NavbarUser({
       hasDropdown: true,
       dropdownItems: [
         { title: 'Deposit PKR', href: '/user/deposits/pkr', icon: ArrowDownLeft },
-        { title: 'Deposit USDT', href: '/user/deposits/usdt', icon: ArrowDownLeft },
+        { title: 'Deposit USDT', href: '/user/usdt-deposit', icon: ArrowDownLeft },
       ]
     },
     { 
