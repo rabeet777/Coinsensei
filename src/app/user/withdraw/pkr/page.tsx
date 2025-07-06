@@ -85,11 +85,11 @@ export default function WithdrawPKRPage() {
       // wallet
       const { data: w } = await supabase
         .from('user_pkr_wallets')
-          .select('total_balance,locked_balance')
+          .select('balance,locked_balance')
         .eq('user_id', session.user.id)
         .single()
       if (w) {
-          setBalance(Number(w.total_balance))
+          setBalance(Number(w.balance))
         setLocked(Number(w.locked_balance))
       }
         
@@ -153,7 +153,7 @@ export default function WithdrawPKRPage() {
       const { error: updateErr } = await supabase
         .from('user_pkr_wallets')
         .update({ 
-          total_balance: newBalance,
+          balance: newBalance,
           locked_balance: newLocked 
         })
         .eq('user_id', userId)

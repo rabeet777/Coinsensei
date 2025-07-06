@@ -25,6 +25,7 @@ import {
   TrendingDown,
   Lock
 } from 'lucide-react'
+import { CoinsenseiLogo } from '@/components/ui/coinsensei-logo'
 
 export default function WithdrawUSDTPage() {
   const supabase = useSupabaseClient()
@@ -69,12 +70,12 @@ export default function WithdrawUSDTPage() {
 
         const { data } = await supabase
           .from('user_wallets')
-          .select('total_balance')
+          .select('balance')
           .eq('user_id', user.id)
           .single()
 
         if (data) {
-          setBalance(Number(data.total_balance) || 0)
+          setBalance(Number(data.balance) || 0)
         }
       } catch (error) {
         console.error('Error loading balance:', error)
@@ -561,6 +562,9 @@ export default function WithdrawUSDTPage() {
               <motion.div key="processing" {...fadeInUp}>
                 <Card className="border-0 shadow-lg">
                   <CardContent className="p-8 text-center">
+                    <div className="flex justify-center mb-6">
+                      <CoinsenseiLogo size="xl" showText={false} />
+                    </div>
                     <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                       <motion.div
                         animate={{ rotate: 360 }}
@@ -645,93 +649,56 @@ export default function WithdrawUSDTPage() {
               <motion.div key="success" {...fadeInUp}>
                 <Card className="border-0 shadow-lg">
                   <CardContent className="p-8 text-center">
+                    <div className="flex justify-center mb-6">
+                      <CoinsenseiLogo size="xl" showText={false} />
+                    </div>
                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="h-10 w-10 text-green-600" />
                     </div>
-                    
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                      {isInternalTransfer ? '✅ Transfer Completed!' : '🚀 Withdrawal Successful!'}
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                      Withdrawal Successful!
                     </h2>
-                    
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                      {isInternalTransfer ? (
-                        <>Your transfer of <strong>{amount.toFixed(6)} USDT</strong> has been completed instantly to another platform user.</>
-                      ) : (
-                        <>Your withdrawal of <strong>{amount.toFixed(6)} USDT</strong> has been successfully submitted to the TRON network.</>
-                      )}
+                    <p className="text-gray-600 mb-6">
+                      Your withdrawal of {amount.toFixed(6)} USDT has been successfully submitted to the TRON network.
                     </p>
-                    
-                    {txId && (
-                      <div className="bg-gray-50 p-4 rounded-lg mb-6">
-                        <h3 className="font-semibold text-gray-900 mb-2">Transaction ID</h3>
-                        <div className="flex items-center gap-2 bg-white p-3 rounded border">
-                          <code className="text-sm font-mono text-gray-700 flex-1 break-all">
-                            {txId}
-                          </code>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => copyToClipboard(txId)}
-                          >
-                            {copied ? (
-                              <Check className="h-4 w-4 text-green-600" />
-                            ) : (
-                              <Copy className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                        <div className="mt-3">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => window.open(`https://nile.tronscan.org/#/transaction/${txId}`, '_blank')}
-                          >
-                            <ExternalLink className="h-4 w-4 mr-2" />
-                            View on Tronscan
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-                    
-                    <div className="bg-blue-50 p-4 rounded-lg mb-6 text-left">
-                      <h3 className="font-semibold text-blue-900 mb-2">Transaction Details</h3>
-                      <div className="text-sm text-blue-800 space-y-1">
-                        <p><strong>Amount:</strong> {amount.toFixed(6)} USDT</p>
-                        <p><strong>Platform Fee:</strong> {networkFee} USDT</p>
-                        <p><strong>Total Cost:</strong> {totalCost.toFixed(6)} USDT</p>
-                        <p><strong>To:</strong> {toAddress}</p>
-                        <p><strong>Type:</strong> {isInternalTransfer ? 'Internal Transfer' : 'External Withdrawal'}</p>
-                        <p><strong>Network:</strong> TRON (TRC-20)</p>
-                        <p><strong>Status:</strong> {isInternalTransfer ? 'Completed' : 'Submitted to blockchain'}</p>
+
+                    {/* Transaction ID */}
+                    <div className="bg-gray-50 p-4 rounded-xl mb-6">
+                      <p className="text-sm font-medium text-gray-700 mb-2">Transaction ID</p>
+                      <div className="flex items-center justify-center gap-2">
+                        <code className="bg-white px-3 py-1 rounded border text-sm font-mono">
+                          {txId}
+                        </code>
+                        <button
+                          onClick={() => copyToClipboard(txId || '')}
+                          className="p-1 hover:bg-gray-100 rounded"
+                        >
+                          {copied ? (
+                            <Check className="h-4 w-4 text-green-600" />
+                          ) : (
+                            <Copy className="h-4 w-4 text-gray-500" />
+                          )}
+                        </button>
                       </div>
                     </div>
-                    
-                    <div className="bg-yellow-50 p-4 rounded-lg mb-6 text-left">
-                      <h3 className="font-semibold text-yellow-900 mb-2">What's Next?</h3>
-                      <ul className="text-sm text-yellow-800 space-y-1">
-                        {isInternalTransfer ? (
-                          <>
-                            <li>✅ Transfer completed instantly</li>
-                            <li>✅ Recipient's balance updated</li>
-                            <li>✅ Transaction recorded in both accounts</li>
-                            <li>• Check your transaction history for records</li>
-                          </>
-                        ) : (
-                          <>
-                            <li>• Your transaction is being processed by the TRON network</li>
-                            <li>• It may take a few minutes to confirm</li>
-                            <li>• You can track the status on Tronscan using the TX ID above</li>
-                            <li>• The recipient will receive the USDT once confirmed</li>
-                          </>
-                        )}
-                      </ul>
-                    </div>
-                    
-                    <Button 
-              onClick={() => router.push('/user/dashboard')}
-                      className="w-full bg-green-600 hover:bg-green-700"
-            >
-              Back to Dashboard
+
+                    {/* View on Tronscan */}
+                    <Button
+                      onClick={() => window.open(`https://tronscan.org/#/transaction/${txId}`, '_blank')}
+                      className="w-full mb-4"
+                    >
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      View on Tronscan
+                    </Button>
+
+                    {/* Back to Dashboard */}
+                    <Button
+                      variant="outline"
+                      onClick={() => router.push('/user/dashboard')}
+                      className="w-full"
+                    >
+                      <ArrowLeft className="h-4 w-4 mr-2" />
+                      Back to Dashboard
                     </Button>
                   </CardContent>
                 </Card>

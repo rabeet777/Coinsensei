@@ -118,15 +118,15 @@ export default function AdminWithdrawalsPKRPage() {
         await supabase
           .from('user_pkr_wallets')
           .update({
-            balance:        (w.balance||0) - selected.amount,
             locked_balance: (w.locked_balance||0) - selected.amount
           })
           .eq('user_id', selected.user_id)
       } else {
-        // rejected → just unlock
+        // rejected → unlock and return to balance
         await supabase
           .from('user_pkr_wallets')
           .update({
+            balance: (w.balance||0) + selected.amount,
             locked_balance: (w.locked_balance||0) - selected.amount
           })
           .eq('user_id', selected.user_id)
