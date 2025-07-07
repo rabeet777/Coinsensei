@@ -104,13 +104,23 @@ export default function TradePage() {
   // 8) Socket.IO connection & listeners
   useEffect(() => {
     if (!socket && session?.user.id) {
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 
-                     (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000')
-      const socketClient = clientIo(baseUrl)
-      setSocket(socketClient)
+      const isDevelopment = process.env.NODE_ENV === 'development'
+      const socketUrl = isDevelopment 
+        ? 'http://localhost:3000'
+        : 'wss://rabeet777-workers.hf.space'
+
+      const socketClient = clientIo(socketUrl, {
+        path: '/socket.io',
+        transports: ['websocket'],
+        secure: !isDevelopment
+      })
 
       socketClient.on('connect', () => {
         console.log('TradePage socket connected:', socketClient.id)
+      })
+
+      socketClient.on('connect_error', (error) => {
+        console.error('Socket connection error:', error)
       })
 
       // Public order book (OrderBook sub‐component may subscribe internally)

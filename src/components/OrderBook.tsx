@@ -49,12 +49,23 @@ export default function OrderBook() {
 
   // 2) Subscribe to live updates via Socket.IO
   useEffect(() => {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 
-                   (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000')
-    const socket = io(baseUrl)
+    const isDevelopment = process.env.NODE_ENV === 'development'
+    const socketUrl = isDevelopment 
+      ? 'http://localhost:3000'
+      : 'wss://rabeet777-workers.hf.space'
+
+    const socket = io(socketUrl, {
+      path: '/socket.io',
+      transports: ['websocket'],
+      secure: !isDevelopment
+    })
 
     socket.on('connect', () => {
       console.log('OrderBook socket connected:', socket.id)
+    })
+
+    socket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error)
     })
 
     socket.on('orderBookUpdate', (book: { buy: RawOrder[]; sell: RawOrder[] }) => {
