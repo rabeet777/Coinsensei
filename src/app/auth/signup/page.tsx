@@ -151,14 +151,14 @@ function SignupContent() {
               <CoinsenseiLogo size="xl" showText={false} />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Create Account
+          Create Account
             </h1>
             <p className="text-gray-600">Join thousands of traders on Pakistan's most trusted P2P platform</p>
           </motion.div>
 
           <form onSubmit={handleSignup} className="space-y-6">
             <AnimatePresence>
-              {message && (
+        {message && (
                 <motion.div
                   initial={{ opacity: 0, y: -10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -177,10 +177,10 @@ function SignupContent() {
                     ) : (
                       <CheckCircleIcon className="h-4 w-4" />
                     )}
-                    {message.text}
+            {message.text}
                   </p>
                 </motion.div>
-              )}
+        )}
             </AnimatePresence>
 
             <motion.div
@@ -193,11 +193,11 @@ function SignupContent() {
                 Email Address
               </label>
               <input
-                type="email"
+          type="email"
                 placeholder="Enter your email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                required
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
                 className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm"
               />
             </motion.div>
@@ -215,9 +215,9 @@ function SignupContent() {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Create a strong password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  required
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
                   className="w-full px-4 py-4 pr-12 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm"
                 />
                 <button
@@ -247,9 +247,9 @@ function SignupContent() {
                 <input
                   type={showConfirmPassword ? 'text' : 'password'}
                   placeholder="Confirm your password"
-                  value={confirmPassword}
-                  onChange={e => setConfirmPassword(e.target.value)}
-                  required
+          value={confirmPassword}
+          onChange={e => setConfirmPassword(e.target.value)}
+          required
                   className="w-full px-4 py-4 pr-12 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm"
                 />
                 <button
@@ -272,8 +272,8 @@ function SignupContent() {
               transition={{ delay: 0.7, duration: 0.6 }}
             >
               <Button
-                type="submit"
-                disabled={loading}
+          type="submit"
+          disabled={loading}
                 className="w-full btn-shimmer btn-glow shadow-xl py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
@@ -298,7 +298,7 @@ function SignupContent() {
             className="mt-8 text-center"
           >
             <p className="text-gray-600 text-sm">
-              Already have an account?{' '}
+          Already have an account?{' '}
               <button
                 onClick={() => router.push('/auth/login')}
                 className="text-blue-600 hover:text-blue-700 font-semibold transition-colors hover:underline"
