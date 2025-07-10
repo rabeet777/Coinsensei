@@ -107,7 +107,7 @@ export default function TradePage() {
       const isDevelopment = process.env.NODE_ENV === 'development'
       const socketUrl = isDevelopment 
         ? 'http://localhost:3000'
-        : 'wss://rabeet777-workers.hf.space'
+        : 'wss://rabeet777-coinsensei-websocket.hf.space'
 
       const socketClient = clientIo(socketUrl, {
         path: '/socket.io',

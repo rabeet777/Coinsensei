@@ -52,7 +52,7 @@ export default function OrderBook() {
     const isDevelopment = process.env.NODE_ENV === 'development'
     const socketUrl = isDevelopment 
       ? 'http://localhost:3000'
-      : 'wss://rabeet777-workers.hf.space'
+      : 'wss://rabeet777-coinsensei-websocket.hf.space'
 
     const socket = io(socketUrl, {
       path: '/socket.io',
