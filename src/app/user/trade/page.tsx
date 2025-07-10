@@ -165,7 +165,12 @@ export default function TradePage() {
 
     setLoading(true)
     try {
-      const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+      // Use Hugging Face service in production, local API in development
+      const isDevelopment = process.env.NODE_ENV === 'development'
+      const baseUrl = isDevelopment 
+        ? (typeof window !== 'undefined' ? window.location.origin : '')
+        : 'https://rabeet777-coinsensei-websocket.hf.space'
+
       const res = await fetch(`${baseUrl}/api/placeOrder`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
