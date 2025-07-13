@@ -467,12 +467,7 @@ export default function UserDashboard() {
                   </div>
                 </div>
                 <div className="text-center bg-white/50 backdrop-blur-sm p-3 rounded-xl border border-white/30">
-                  <p className="text-xl font-bold text-emerald-600">₨280.50</p>
-                  <p className="text-xs text-gray-500">PKR/USDT</p>
-                  <div className="flex items-center justify-center gap-1 mt-1">
-                    <TrendingUp className="h-3 w-3 text-emerald-500" />
-                    <span className="text-emerald-500 text-xs font-semibold">+0.8%</span>
-                  </div>
+                  <p className="text-sm text-gray-500">USDT/PKR</p>
                 </div>
               </div>
             </CardHeader>
@@ -488,43 +483,7 @@ export default function UserDashboard() {
           </Card>
         </motion.div>
 
-        {/* Recent Activity */}
-        <motion.div variants={fadeInUp} initial="initial" animate="animate">
-          <Card className="border-0 shadow-md bg-white/60 backdrop-blur-sm overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-50/30 to-slate-50/20"></div>
-            <CardHeader className="pb-4 relative">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="bg-white/70 backdrop-blur-sm p-3 rounded-2xl shadow-sm border border-gray-100/60">
-                    <History className="h-6 w-6 text-gray-600" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl text-gray-800">Recent Activity</CardTitle>
-                    <CardDescription className="text-gray-500">Your latest transactions</CardDescription>
-                  </div>
-                </div>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => router.push('/user/transactions')}
-                  className="text-gray-600 border border-gray-200 hover:bg-gray-50 transition-all duration-300 rounded-lg"
-                >
-                  View All
-                  <ChevronRight className="h-3 w-3 ml-1" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="relative">
-              <div className="text-center py-10 text-gray-500">
-                <div className="bg-white/50 backdrop-blur-sm p-4 rounded-xl w-16 h-16 mx-auto mb-3 flex items-center justify-center border border-white/30">
-                  <History className="h-8 w-8 text-gray-400" />
-                </div>
-                <p className="font-semibold text-gray-700 mb-1">No recent activity</p>
-                <p className="text-sm text-gray-500">Your transactions will appear here</p>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+        {/* Remove Recent Activity section */}
       </div>
     </div>
   )

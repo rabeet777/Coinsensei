@@ -365,13 +365,13 @@ export default function DepositPKRPage() {
                           <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg">
                             ₨
                           </span>
-                  <input
-                    type="number"
-                    step="any"
-                    value={amount}
+                          <input
+                            type="number"
+                            step="any"
+                            value={amount}
                             onChange={(e) => setAmount(e.target.value)}
                             placeholder="Enter amount (e.g. 10,000)"
-                    required
+                            required
                             min="1000"
                             className="w-full pl-10 pr-4 py-4 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                           />
@@ -381,8 +381,56 @@ export default function DepositPKRPage() {
                         </p>
                       </div>
 
+                      {/* Important Terms and Conditions */}
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                        <h4 className="text-red-800 font-semibold mb-2 flex items-center gap-2">
+                          <AlertCircle className="h-5 w-5" />
+                          Important Terms & Conditions
+                        </h4>
+                        <ul className="text-sm text-red-700 space-y-2">
+                          <li className="flex items-start gap-2">
+                            <span className="font-bold">•</span>
+                            <span><strong>Third-Party Payments Strictly Prohibited:</strong> Always make payments from your own account. Third-party payments will be rejected and may lead to account suspension.</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="font-bold">•</span>
+                            <span><strong>Account Verification:</strong> Your payment must be made from a bank account matching your KYC details.</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="font-bold">•</span>
+                            <span><strong>Payment Reference:</strong> Include your registered phone number or email in the payment reference for faster processing.</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="font-bold">•</span>
+                            <span><strong>Processing Time:</strong> Deposits are typically processed within 24 hours during business days.</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      {/* Additional Guidelines */}
+                      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                        <h4 className="text-blue-800 font-semibold mb-2 flex items-center gap-2">
+                          <CheckCircle className="h-5 w-5" />
+                          Additional Guidelines
+                        </h4>
+                        <ul className="text-sm text-blue-700 space-y-2">
+                          <li className="flex items-start gap-2">
+                            <span className="font-bold">•</span>
+                            <span>Keep your payment proof screenshot ready before proceeding.</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="font-bold">•</span>
+                            <span>Ensure the payment amount matches exactly with your deposit request.</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="font-bold">•</span>
+                            <span>Multiple deposits should be submitted as separate requests.</span>
+                          </li>
+                        </ul>
+                      </div>
+
                       <Button 
-                  type="submit"
+                        type="submit"
                         className="w-full h-12 text-lg bg-blue-600 hover:bg-blue-700"
                         disabled={!amount || parseFloat(amount) < 1000}
                       >

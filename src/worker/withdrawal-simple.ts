@@ -1,14 +1,24 @@
 // ✅ CRITICAL: Load environment variables FIRST before any other imports
-import 'dotenv/config'
 import { config } from 'dotenv'
+import { createClient as createAdmin } from '@supabase/supabase-js'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+import fetch from 'node-fetch'
+
+// Configure global fetch for Supabase
+// @ts-ignore
+global.fetch = fetch
 
 // Load environment variables from .env.local IMMEDIATELY
 config({ path: '.env.local' })
 
-// Now safe to import other modules that might use env vars
-import { createClient as createAdmin } from '@supabase/supabase-js'
-import { getTronWeb, deriveTronAccount } from '@/lib/tronWallet'
-import { getPendingWithdrawalJobs, markJobAsProcessing, markJobAsCompleted, markJobAsFailed } from '@/lib/simpleQueue'
+// Get current file's directory
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+// Import dependencies
+import { getTronWeb, deriveTronAccount } from '../lib/tronWallet.js'
+import { getPendingWithdrawalJobs, markJobAsProcessing, markJobAsCompleted, markJobAsFailed } from '../lib/simpleQueue.js'
 
 // Constants
 const POLL_INTERVAL = 10000 // 10 seconds

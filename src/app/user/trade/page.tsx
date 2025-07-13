@@ -274,20 +274,14 @@ export default function TradePage() {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Spot Trading</h1>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">USDT/PKR Trading</h1>
               <div className="flex items-center gap-4 text-sm text-gray-600">
                 <span className="flex items-center gap-1">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   Real-time trading
                 </span>
-                <span>PKR/USDT</span>
-                <span>Fee: 0.15%</span>
+                <span>USDT/PKR</span>
               </div>
-            </div>
-            <div className="text-right">
-              <div className="text-sm text-gray-600">Last Price</div>
-              <div className="text-2xl font-bold text-blue-600">₨ 289.50</div>
-              <div className="text-sm text-green-600">+0.25%</div>
             </div>
           </div>
         </div>

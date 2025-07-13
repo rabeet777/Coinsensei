@@ -28,13 +28,14 @@ import {
   CameraIcon
 } from '@heroicons/react/24/outline'
 import type { Database } from '@/lib/database.types'
+import Image from 'next/image'
 
 // Unified transaction type
 type Transaction = {
   id: string
   type: 'usdt_deposit' | 'usdt_withdrawal' | 'pkr_deposit' | 'pkr_withdrawal'
   amount: number
-  status: 'pending' | 'completed' | 'failed' | 'cancelled' | 'processing'
+  status: 'pending' | 'completed' | 'rejected' | 'approved'
   created_at: string
   tx_id?: string | null
   to_address?: string
@@ -48,7 +49,7 @@ type Transaction = {
 
 type CurrencyFilter = 'usdt' | 'pkr'
 type FilterType = 'all' | 'deposits' | 'withdrawals'
-type StatusFilter = 'all' | 'completed' | 'pending' | 'failed' | 'cancelled'
+type StatusFilter = 'all' | 'completed' | 'pending' | 'rejected' | 'approved'
 
 export default function TransactionsPage() {
   const router = useRouter()
@@ -110,7 +111,7 @@ export default function TransactionsPage() {
           id: validId ? `usdt_deposit_${tx.id}` : `usdt_deposit_${Date.parse(tx.created_at)}_${index}`,
           type: 'usdt_deposit',
           amount: tx.amount,
-          status: tx.status === 'confirmed' ? 'completed' : 'pending',
+          status: 'completed', // Always show completed for processed_txs
           created_at: tx.created_at,
           tx_id: tx.tx_id,
           from_address: tx.from_address,
@@ -287,12 +288,13 @@ export default function TransactionsPage() {
       case 'completed':
         return <CheckCircleIcon className="h-4 w-4 text-green-600" />
       case 'pending':
-      case 'processing':
         return <ClockIcon className="h-4 w-4 text-yellow-600" />
-      case 'failed':
+      case 'rejected':
         return <XCircleIcon className="h-4 w-4 text-red-600" />
-      case 'cancelled':
-        return <XCircleIcon className="h-4 w-4 text-gray-600" />
+      case 'approved':
+        return <CheckCircleIcon className="h-4 w-4 text-blue-600" />
+      default:
+        return <ClockIcon className="h-4 w-4 text-gray-600" />
     }
   }
 
@@ -303,12 +305,11 @@ export default function TransactionsPage() {
       case 'completed':
         return `${baseClasses} bg-green-100 text-green-800`
       case 'pending':
-      case 'processing':
         return `${baseClasses} bg-yellow-100 text-yellow-800`
-      case 'failed':
+      case 'rejected':
         return `${baseClasses} bg-red-100 text-red-800`
-      case 'cancelled':
-        return `${baseClasses} bg-gray-100 text-gray-800`
+      case 'approved':
+        return `${baseClasses} bg-blue-100 text-blue-800`
       default:
         return `${baseClasses} bg-gray-100 text-gray-800`
     }
@@ -338,12 +339,15 @@ export default function TransactionsPage() {
         <div className="space-y-6">
           {/* Header Section */}
           <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                <ArrowDownIcon className="h-5 w-5 text-green-600" />
-              </div>
-              <div>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                  <ArrowDownIcon className="h-5 w-5 text-green-600" />
+                </div>
                 <h3 className="text-lg font-semibold text-green-800">USDT Deposit Received</h3>
+              </div>
+              <div className="flex items-center gap-2">
+                <Image src="/logo.webp" alt="CoinSensei" width={64} height={64} className="rounded-full" />
                 <p className="text-green-600 text-sm">Processed by CoinSensei</p>
               </div>
             </div>
@@ -443,12 +447,15 @@ export default function TransactionsPage() {
         <div className="space-y-6">
           {/* Header Section */}
           <div className="bg-red-50 rounded-lg p-4 border border-red-200">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                <ArrowUpIcon className="h-5 w-5 text-red-600" />
-              </div>
-              <div>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                  <ArrowUpIcon className="h-5 w-5 text-red-600" />
+                </div>
                 <h3 className="text-lg font-semibold text-red-800">USDT Withdrawal</h3>
+              </div>
+              <div className="flex items-center gap-2">
+                <Image src="/logo.webp" alt="CoinSensei" width={64} height={64} className="rounded-full" />
                 <p className="text-red-600 text-sm">Processed by CoinSensei</p>
               </div>
             </div>
@@ -881,10 +888,10 @@ export default function TransactionsPage() {
                 className="w-full bg-white border border-gray-300 rounded-xl px-4 py-2 text-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
               >
                 <option value="all">All Status</option>
-                <option value="completed">Completed</option>
                 <option value="pending">Pending</option>
-                <option value="failed">Failed</option>
-                <option value="cancelled">Cancelled</option>
+                <option value="completed">Completed</option>
+                <option value="rejected">Rejected</option>
+                <option value="approved">Approved</option>
               </select>
             </div>
 
