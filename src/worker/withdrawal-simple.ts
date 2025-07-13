@@ -6,7 +6,7 @@ import { dirname, join } from 'path'
 import fetch from 'node-fetch'
 
 // Configure global fetch for Supabase
-// @ts-ignore
+// @ts-expect-error global fetch is required for Supabase but not typed in Node
 global.fetch = fetch
 
 // Load environment variables from .env.local IMMEDIATELY
