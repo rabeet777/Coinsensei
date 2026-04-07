@@ -83,7 +83,11 @@ export default function SupportedBanks() {
               className="shrink-0 min-w-[260px] flex items-center gap-3 rounded-2xl border border-[--color-border] bg-white px-5 py-3 shadow-sm"
             >
               <div className="w-10 h-10 rounded-lg bg-[--color-surface-mid] border border-[--color-border] overflow-hidden flex items-center justify-center shrink-0">
-                <BankLogo name={bank.name} domain={bank.domain} logo={bank.logo} />
+                <BankLogo
+                  name={bank.name}
+                  domain={bank.domain}
+                  logo={'logo' in bank ? bank.logo : undefined}
+                />
               </div>
               <span className="text-sm font-semibold text-[--color-text-pri] whitespace-nowrap">
                 {bank.name}
