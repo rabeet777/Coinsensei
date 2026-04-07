@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="18" fill="#f15b2a"/>
+  <path d="M15 36h98" stroke="#8a1f13" stroke-width="8"/>
+  <text x="64" y="76" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">JAZZ</text>
+  <text x="64" y="102" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700">CASH</text>
+</svg>

@@ -1,26 +1,183 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ── Tailwind v4 Theme ─────────────────────────────────────── */
+@theme {
+  /* Colors */
+  --color-primary:       #00687c;
+  --color-primary-light: #18d8ff;
+  --color-primary-dark:  #004e5e;
+  --color-surface:       #f7f9fb;
+  --color-surface-mid:   #f2f4f6;
+  --color-surface-card:  #ffffff;
+  --color-surface-high:  #e6e8ea;
+  --color-text-pri:      #191c1e;
+  --color-text-sec:      #3c494d;
+  --color-text-muted:    #6c797e;
+  --color-border:        rgba(187,201,206,0.4);
+  --color-border-strong: #bbc9ce;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Fonts */
+  --font-display: var(--font-manrope), sans-serif;
+  --font-body:    var(--font-inter), sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Border radius */
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+
+  /* Animations */
+  --animate-float:   float 5s ease-in-out infinite;
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-12px); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
   }
 }
 
+/* ── Base ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-surface);
+  color: var(--color-text-pri);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(0,104,124,0.15); color: var(--color-primary); }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: #bbc9ce; border-radius: 3px; }
+
+/* ── Utilities ─────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #1ab8d6 100%);
+  color: #fff;
+  transition: filter 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.btn-primary:hover  {
+  filter: brightness(1.08);
+  box-shadow: 0 8px 24px rgba(0,104,124,0.3);
+}
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-outline {
+  border: 1px solid rgba(0,104,124,0.3);
+  color: var(--color-primary);
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-outline:hover  { background: rgba(0,104,124,0.06); }
+.btn-outline:active { transform: scale(0.97); }
+
+.glass {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(187,201,206,0.3);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(0,104,124,0.08);
+  border: 1px solid rgba(0,104,124,0.2);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  font-family: var(--font-inter), sans-serif;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(0,104,124,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,104,124,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-map-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(237,241,243,0.98) 0%, rgba(236,240,242,0.96) 48%, rgba(222,232,234,0.74) 68%, rgba(8,84,82,0.86) 86%, rgba(5,61,61,0.98) 100%);
+}
+
+.hero-map-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/pakistan-network.png');
+  background-repeat: no-repeat;
+  background-size: min(72vw, 980px) auto;
+  background-position: 64% center;
+  opacity: 0.34;
+  filter: saturate(0.8) brightness(1.02);
+}
+
+.divider-glow {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,104,124,0.25), transparent);
+  border: none;
+}
+
+.section-py { padding-top: 96px; padding-bottom: 96px; }
+
+.feature-card {
+  background: var(--color-surface-card);
+  border: 1px solid rgba(187,201,206,0.25);
+  border-radius: 2rem;
+  transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+}
+.feature-card:hover {
+  box-shadow: 0 12px 40px rgba(0,104,124,0.1);
+  border-color: rgba(0,104,124,0.2);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .section-py { padding-top: 72px; padding-bottom: 72px; }
+}
+
+@media (max-width: 1024px) {
+  .hero-map-layer {
+    background: linear-gradient(180deg, rgba(237,241,243,0.97) 0%, rgba(235,240,242,0.94) 60%, rgba(8,84,82,0.82) 100%);
+  }
+
+  .hero-map-image {
+    background-size: min(108vw, 760px) auto;
+    background-position: center 74%;
+    opacity: 0.28;
+  }
 }
