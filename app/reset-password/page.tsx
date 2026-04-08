@@ -1,55 +1,126 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 
-/** Must match Expo `app.json` → expo.scheme */
-const APP_SCHEME = 'coinsensei';
-const APP_PATH = 'reset-password';
+const APP_DEEP_LINK_BASE = 'coinsensei://reset-password';
+const ANDROID_PACKAGE = 'com.coinsensei.app';
 
-export default function PasswordResetBridgePage() {
-  const [showFallback, setShowFallback] = useState(false);
+function buildTail(): string {
+  if (typeof window === 'undefined') return '';
+  const { hash, search } = window.location;
+  if (hash) return hash;
+  if (search) return search.startsWith('?') ? search : `?${search}`;
+  return '';
+}
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
+function hasRecoveryTokens(tail: string): boolean {
+  const q = tail.startsWith('#') ? tail.slice(1) : tail.startsWith('?') ? tail.slice(1) : tail;
+  const params = new URLSearchParams(q);
+  return Boolean(params.get('access_token') && params.get('refresh_token'));
+}
 
-    const search = window.location.search || '';
-    const hash = window.location.hash || '';
-    const deepLink = `${APP_SCHEME}://${APP_PATH}${search}${hash}`;
+/** Chrome intent URI needs query form before #Intent; hash-only Supabase URLs become ?access_token=… */
+function tailForAndroidIntent(tail: string): string {
+  if (!tail) return '';
+  const q = tail.startsWith('#') ? tail.slice(1) : tail.startsWith('?') ? tail.slice(1) : tail;
+  return q ? `?${q}` : '';
+}
 
-    window.location.replace(deepLink);
+function BridgeContent() {
+  const [status, setStatus] = useState<'trying' | 'needs-tap' | 'invalid'>('trying');
 
-    const t = window.setTimeout(() => setShowFallback(true), 2000);
-    return () => window.clearTimeout(t);
+  const openAppCustomScheme = useCallback(() => {
+    const tail = buildTail();
+    window.location.href = `${APP_DEEP_LINK_BASE}${tail}`;
   }, []);
 
-  return (
-    <main
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2rem',
-        background: '#0a0a0a',
-        color: '#e5e5e5',
-        fontFamily: 'system-ui, sans-serif',
-        textAlign: 'center',
-      }}
-    >
-      <p style={{ margin: 0 }}>Opening the Coinsensei app…</p>
-      {showFallback && (
-        <p style={{ marginTop: '1.5rem', fontSize: '0.9rem', color: '#94a3b8', maxWidth: '24rem' }}>
-          If nothing happens,{' '}
-          <a
-            href={`${APP_SCHEME}://${APP_PATH}${typeof window !== 'undefined' ? `${window.location.search || ''}${window.location.hash || ''}` : ''}`}
-            style={{ color: '#09d2fe' }}
-          >
-            tap here to open the app
-          </a>
-          , or install Coinsensei from the App Store / Play Store.
+  const openAppAndroidIntent = useCallback(() => {
+    const tail = buildTail();
+    const queryPart = tailForAndroidIntent(tail);
+    const intent = `intent://reset-password${queryPart}#Intent;scheme=coinsensei;package=${ANDROID_PACKAGE};end`;
+    window.location.href = intent;
+  }, []);
+
+  useEffect(() => {
+    const tail = buildTail();
+    if (!hasRecoveryTokens(tail)) {
+      setStatus('invalid');
+      return;
+    }
+
+    openAppCustomScheme();
+
+    const t = window.setTimeout(() => setStatus('needs-tap'), 1800);
+    return () => window.clearTimeout(t);
+  }, [openAppCustomScheme]);
+
+  if (status === 'invalid') {
+    return (
+      <main style={{ padding: 24, maxWidth: 480, margin: '0 auto' }}>
+        <h1 style={{ fontSize: 22 }}>Link incomplete</h1>
+        <p style={{ opacity: 0.85, lineHeight: 1.5 }}>
+          This page should open from your password reset email. If the link expired, request a new reset from the
+          Coinsensei app.
         </p>
-      )}
+      </main>
+    );
+  }
+
+  return (
+    <main style={{ padding: 24, maxWidth: 480, margin: '0 auto' }}>
+      <h1 style={{ fontSize: 22 }}>Open Coinsensei</h1>
+      <p style={{ opacity: 0.85, lineHeight: 1.5 }}>
+        {status === 'trying'
+          ? 'Switching to the app…'
+          : 'If the app did not open, use one of the buttons below (Android may require a tap).'}
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 24 }}>
+        <button
+          type="button"
+          onClick={openAppCustomScheme}
+          style={{
+            padding: '14px 18px',
+            borderRadius: 10,
+            border: 'none',
+            background: '#e8b84a',
+            color: '#111',
+            fontWeight: 600,
+            fontSize: 16,
+            cursor: 'pointer',
+          }}
+        >
+          Open in Coinsensei app
+        </button>
+        <button
+          type="button"
+          onClick={openAppAndroidIntent}
+          style={{
+            padding: '14px 18px',
+            borderRadius: 10,
+            border: '1px solid #333',
+            background: 'transparent',
+            color: '#fafafa',
+            fontSize: 15,
+            cursor: 'pointer',
+          }}
+        >
+          Open with Android (intent link)
+        </button>
+      </div>
     </main>
+  );
+}
+
+export default function ResetPasswordBridgePage() {
+  return (
+    <Suspense
+      fallback={
+        <main style={{ padding: 24 }}>
+          <p style={{ opacity: 0.8 }}>Loading…</p>
+        </main>
+      }
+    >
+      <BridgeContent />
+    </Suspense>
   );
 }
