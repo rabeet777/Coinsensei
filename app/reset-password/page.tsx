@@ -26,12 +26,21 @@ function tailForAndroidIntent(tail: string): string {
   return q ? `?${q}` : '';
 }
 
+/**
+ * Android often drops the URL fragment when opening custom schemes; tokens must be in the query string.
+ * iOS also accepts query — use query for the primary deep link everywhere.
+ */
+function deepLinkWithQueryFromTail(tail: string): string {
+  const query = tailForAndroidIntent(tail);
+  return query ? `${APP_DEEP_LINK_BASE}${query}` : APP_DEEP_LINK_BASE;
+}
+
 function BridgeContent() {
   const [status, setStatus] = useState<'trying' | 'needs-tap' | 'invalid'>('trying');
 
   const openAppCustomScheme = useCallback(() => {
     const tail = buildTail();
-    window.location.href = `${APP_DEEP_LINK_BASE}${tail}`;
+    window.location.href = deepLinkWithQueryFromTail(tail);
   }, []);
 
   const openAppAndroidIntent = useCallback(() => {
@@ -48,6 +57,7 @@ function BridgeContent() {
       return;
     }
 
+    // Prefer query-based deep link so Android delivers access_token / refresh_token to the app.
     openAppCustomScheme();
 
     const t = window.setTimeout(() => setStatus('needs-tap'), 1800);
