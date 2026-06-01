@@ -449,12 +449,12 @@ export default function PrivacyPolicy() {
                   <button
                     key={id}
                     onClick={() => scrollToSection(id)}
-                    className="group inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold border border-[--color-border] bg-white/70 backdrop-blur hover:bg-[--color-primary] hover:text-white hover:border-[--color-primary] transition-all duration-200"
+                    className="group inline-flex items-center gap-2 px-4.5 py-2.5 rounded-full text-xs font-bold border border-[--color-border] bg-[--color-surface-card] backdrop-blur-md hover:bg-gradient-to-br hover:from-primary hover:to-primary-light hover:text-white hover:border-transparent transition-all duration-300 cursor-pointer active:scale-95 shadow-sm"
                   >
                     <Icon
                       name={s.icon}
                       size={14}
-                      className="text-[--color-primary] group-hover:text-white"
+                      className="text-primary group-hover:text-white transition-colors duration-300"
                     />
                     {s.title.replace(/^\d+\.\s*/, '')}
                   </button>
@@ -474,7 +474,7 @@ export default function PrivacyPolicy() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.15 }}
               className="badge w-fit mx-auto mb-4"
             >
               At a Glance
@@ -482,7 +482,7 @@ export default function PrivacyPolicy() {
             <motion.h2
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.15 }}
               className="font-[family-name:var(--font-manrope)] font-extrabold text-3xl md:text-4xl mb-3"
             >
               The promises we live by
@@ -490,7 +490,7 @@ export default function PrivacyPolicy() {
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.15 }}
               transition={{ delay: 0.08 }}
               className="text-[--color-text-sec] max-w-xl mx-auto"
             >
@@ -504,7 +504,7 @@ export default function PrivacyPolicy() {
                 key={h.title}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.15 }}
                 transition={{ delay: i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -4 }}
                 className="feature-card p-6 group"
@@ -728,7 +728,7 @@ function SectionCard({
       id={section.id}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: false, amount: 0.15 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       className="scroll-mt-28 feature-card p-7 md:p-9"
     >
@@ -736,7 +736,7 @@ function SectionCard({
         <motion.div
           initial={{ scale: 0.85, rotate: -8 }}
           whileInView={{ scale: 1, rotate: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.15 }}
           transition={{ delay: 0.05 + index * 0.02, type: 'spring', stiffness: 200 }}
           className="w-12 h-12 rounded-2xl bg-[--color-primary]/10 text-[--color-primary] flex items-center justify-center shrink-0"
         >

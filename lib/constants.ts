@@ -1,10 +1,10 @@
 // ── Navigation ─────────────────────────────────────────────
 export const NAV_LINKS = [
-  { label: 'About',        href: '#about' },
-  { label: 'Features',     href: '#features' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Security',     href: '#security' },
-  { label: 'Why Us',       href: '#why-us' },
+  { label: 'About',        href: '/#about' },
+  { label: 'Features',     href: '/#features' },
+  { label: 'How It Works', href: '/#how-it-works' },
+  { label: 'Security',     href: '/#security' },
+  { label: 'Why Us',       href: '/#why-us' },
 ] as const;
 
 // ── Exchange Rate (update this from your API in production) ─
