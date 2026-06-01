@@ -23,7 +23,7 @@ const COLS = [
     heading: 'Legal',
     links: [
       { label: 'Terms of Service', href: '#' },
-      { label: 'Privacy Policy',   href: '#' },
+      { label: 'Privacy Policy',   href: '/privacy-policy' },
       { label: 'Risk Disclosure',  href: '#' },
       { label: 'AML Policy',       href: '#' },
     ],
