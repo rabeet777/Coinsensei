@@ -92,11 +92,12 @@ function BridgeContent() {
             padding: '14px 18px',
             borderRadius: 10,
             border: 'none',
-            background: '#e8b84a',
-            color: '#111',
+            background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)',
+            color: '#fff',
             fontWeight: 600,
             fontSize: 16,
             cursor: 'pointer',
+            boxShadow: '0 0 15px var(--glow-color)',
           }}
         >
           Open in Coinsensei app
@@ -107,9 +108,9 @@ function BridgeContent() {
           style={{
             padding: '14px 18px',
             borderRadius: 10,
-            border: '1px solid #333',
+            border: '1px solid var(--border-strong)',
             background: 'transparent',
-            color: '#fafafa',
+            color: 'var(--primary)',
             fontSize: 15,
             cursor: 'pointer',
           }}

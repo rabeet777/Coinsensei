@@ -63,7 +63,7 @@ export default function SupportedBanks() {
             Pakistan Bank Coverage
           </h3>
           <p className="text-[--color-text-sec] mt-2">
-            Fast PKR settlement across major banks in Pakistan.
+            Compliant local transfers across all major Pakistani banks at launch.
           </p>
         </div>
       </div>
@@ -80,7 +80,7 @@ export default function SupportedBanks() {
           {BANKS_LOOP.map((bank, idx) => (
             <div
               key={`${bank.name}-${idx}`}
-              className="shrink-0 min-w-[260px] flex items-center gap-3 rounded-2xl border border-[--color-border] bg-white px-5 py-3 shadow-sm"
+              className="shrink-0 min-w-[260px] flex items-center gap-3 rounded-2xl border border-[--color-border] bg-[--color-surface-card] px-5 py-3 shadow-sm"
             >
               <div className="w-10 h-10 rounded-lg bg-[--color-surface-mid] border border-[--color-border] overflow-hidden flex items-center justify-center shrink-0">
                 <BankLogo

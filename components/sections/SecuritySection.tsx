@@ -5,27 +5,26 @@ import Icon from '@/components/ui/Icon';
 import { SECURITY_FEATURES } from '@/lib/constants';
 
 const CHECKLIST = [
-  'Payment Guaranteed',
-  'Zero Scam Reports — Ever',
-  '5,000+ Verified Trades',
-  'No Bank Holds — Ever',
-  'Registered Business Identity',
+  'Regulated Cold Custody',
+  'Audit-Trail On-Chain Logs',
+  'Direct PKR Settlement',
+  'Multi-Sig Security Checks',
+  'Corporate Gateway Identity',
 ];
 
 export default function SecuritySection() {
   return (
     <section
       id="security"
-      className="section-py text-white overflow-hidden relative"
-      style={{ background: 'linear-gradient(135deg, #00687c 0%, #005468 100%)' }}
+      className="section-py text-[--color-text-pri] bg-gradient-to-br from-[--color-surface-mid] to-[--color-surface] border-y border-[--color-border] overflow-hidden relative"
     >
       {/* Decorative blobs */}
-      <div className="absolute right-0 top-0 w-1/2 h-full opacity-10 pointer-events-none">
+      <div className="absolute right-0 top-0 w-1/2 h-full opacity-5 pointer-events-none text-[--color-primary]">
         <svg className="w-full h-full" fill="currentColor" viewBox="0 0 100 100">
           <circle cx="100" cy="0" r="100" />
         </svg>
       </div>
-      <div className="absolute left-0 bottom-0 w-64 h-64 opacity-5 pointer-events-none">
+      <div className="absolute left-0 bottom-0 w-64 h-64 opacity-5 pointer-events-none text-[--color-primary]">
         <svg className="w-full h-full" fill="currentColor" viewBox="0 0 100 100">
           <circle cx="0" cy="100" r="100" />
         </svg>
@@ -37,8 +36,8 @@ export default function SecuritySection() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-block px-4 py-1 rounded-full bg-white/10 text-white font-bold uppercase tracking-widest text-xs mb-6"
+            viewport={{ once: false, amount: 0.15 }}
+            className="badge mb-6"
             style={{ fontFamily: 'var(--font-inter)' }}
           >
             Your Protection is Our Priority
@@ -47,9 +46,9 @@ export default function SecuritySection() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.15 }}
             transition={{ delay: 0.08 }}
-            className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl leading-tight mb-10"
+            className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl leading-tight mb-10 text-[--color-text-pri]"
           >
             Built on Trust.<br />Backed by Guarantees.
           </motion.h2>
@@ -60,44 +59,68 @@ export default function SecuritySection() {
                 key={f.title}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false, amount: 0.15 }}
                 transition={{ delay: i * 0.1 }}
-                className="flex gap-4"
+                className="flex gap-4 group cursor-default"
               >
-                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-                  <Icon name={f.icon} filled size={24} className="text-white" />
+                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 icon-hover-gradient">
+                  <Icon name={f.icon} filled size={24} className="text-primary group-hover:text-white transition-colors duration-300" />
                 </div>
                 <div>
-                  <h4 className="font-[family-name:var(--font-manrope)] font-bold text-lg mb-1">
+                  <h4 className="font-[family-name:var(--font-manrope)] font-bold text-lg mb-1 text-[--color-text-pri] group-hover:text-primary transition-colors duration-350">
                     {f.title}
                   </h4>
-                  <p className="text-white/70 leading-relaxed text-sm">{f.desc}</p>
+                  <p className="text-[--color-text-sec] leading-relaxed text-sm">{f.desc}</p>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Right: Checklist card */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="flex justify-center"
+        {/* Right: Security App Mockup */}
+        <div 
+          className="flex justify-center select-none w-full max-w-[340px] mx-auto relative"
+          style={{ perspective: 1000 }}
         >
-          <div className="bg-white/5 backdrop-blur-xl p-10 rounded-[3rem] border border-white/10 text-center space-y-5 w-full max-w-sm">
-            <Icon name="shield_with_heart" filled size={96} className="text-white/25 mx-auto" />
-            <div className="space-y-3">
-              {CHECKLIST.map((item) => (
-                <div key={item} className="flex items-center gap-3 bg-white/10 px-5 py-3 rounded-xl">
-                  <Icon name="check_circle" filled size={20} className="text-green-400 shrink-0" />
-                  <span className="font-semibold text-sm text-left">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+          {/* Radial card glow */}
+          <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl z-0 pointer-events-none" />
+
+          <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.92, rotate: 2 }}
+            whileInView={{ 
+              opacity: 1, 
+              y: [0, -16, 0], 
+              scale: 1,
+              rotate: 2
+            }}
+            whileHover={{
+              scale: 1.06,
+              rotateY: 12,
+              rotateX: 8,
+              z: 30,
+              transition: { duration: 0.4, ease: 'easeOut' }
+            }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{
+              opacity: { duration: 0.8, delay: 0.2 },
+              scale: { duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
+              y: { 
+                duration: 6, 
+                repeat: Infinity, 
+                ease: 'easeInOut'
+              }
+            }}
+            className="relative z-10 w-[240px] sm:w-[280px] filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.22)] dark:drop-shadow-[0_25px_50px_rgba(0,216,255,0.14)] cursor-pointer"
+            style={{ transformStyle: 'preserve-3d' }}
+          >
+            <img 
+              src="/mobileimage2.png" 
+              alt="CoinSensei Security App Mockup" 
+              className="w-full h-auto object-cover" 
+              loading="lazy"
+            />
+          </motion.div>
+        </div>
       </div>
     </section>
   );

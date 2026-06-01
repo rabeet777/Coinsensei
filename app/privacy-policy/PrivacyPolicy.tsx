@@ -23,7 +23,7 @@ const EFFECTIVE_DATE = 'May 21, 2026';
 const HIGHLIGHTS = [
   {
     icon: 'block',
-    color: 'bg-rose-100 text-rose-600',
+    color: 'bg-[--color-primary]/10 text-[--color-primary]',
     title: 'We never sell your data',
     desc: 'Your personal information is never sold or rented to advertisers or third parties.',
   },
@@ -35,13 +35,13 @@ const HIGHLIGHTS = [
   },
   {
     icon: 'visibility_off',
-    color: 'bg-purple-100 text-purple-600',
+    color: 'bg-[--color-primary]/10 text-[--color-primary]',
     title: 'Minimal data collection',
-    desc: 'We only collect what we need to deliver our exchange service and meet regulations.',
+    desc: 'We only collect what we need to deliver our virtual asset service and meet regulations.',
   },
   {
     icon: 'task_alt',
-    color: 'bg-green-100 text-green-600',
+    color: 'bg-[--color-primary]/10 text-[--color-primary]',
     title: 'You stay in control',
     desc: 'Access, correct, export, or delete your data at any time through our support team.',
   },
@@ -53,7 +53,7 @@ const SECTIONS: Section[] = [
     icon: 'waving_hand',
     title: '1. Introduction',
     intro:
-      'CoinSensei ("CoinSensei", "we", "us", or "our") is committed to protecting the privacy and security of every customer who uses our USDT-to-PKR exchange platform. This Privacy Policy explains how we collect, use, store, share, and protect your personal information when you visit our website, use the CoinSensei mobile app, or interact with our support team.',
+      'CoinSensei ("CoinSensei", "we", "us", or "our") is committed to protecting the privacy and security of every customer who uses our secure virtual asset platform. This Privacy Policy explains how we collect, use, store, share, and protect your personal information when you visit our website, use the CoinSensei mobile app, or interact with our support team.',
     body: [
       'By accessing or using our services, you confirm that you have read, understood, and agreed to the practices described in this Privacy Policy. If you do not agree, please do not use our services.',
       'This policy is written in plain English so you can clearly understand your rights. We have also published an Urdu summary upon request — please contact support@coinsensei.com for a copy.',
@@ -64,7 +64,7 @@ const SECTIONS: Section[] = [
     icon: 'inventory_2',
     title: '2. Information We Collect',
     intro:
-      'We collect only the information that is necessary to provide a secure, compliant, and reliable exchange service. The categories of information we collect are listed below.',
+      'We collect only the information that is necessary to provide a secure, compliant, and reliable virtual asset service. The categories of information we collect are listed below.',
     bullets: [
       {
         icon: 'person',
@@ -84,7 +84,7 @@ const SECTIONS: Section[] = [
       {
         icon: 'swap_horiz',
         title: 'Transaction Data',
-        desc: 'Trade amounts, timestamps, exchange rates, and unique transaction IDs — required for record-keeping, AML compliance, and dispute resolution.',
+        desc: 'Transaction amounts, timestamps, conversion rates, and unique transaction IDs — required for record-keeping, AML compliance, and dispute resolution.',
       },
       {
         icon: 'devices',
@@ -103,10 +103,10 @@ const SECTIONS: Section[] = [
     icon: 'task',
     title: '3. How We Use Your Information',
     intro:
-      'Your data powers a faster, safer trading experience. We only use it for the purposes listed below, and we never use it for unsolicited advertising.',
+      'Your data powers a faster, safer platform experience. We only use it for the purposes listed below, and we never use it for unsolicited advertising.',
     body: [
       'To verify your identity and comply with Pakistan KYC, AML, and CFT obligations.',
-      'To process your USDT-to-PKR or PKR-to-USDT trade requests and credit funds to your bank or wallet.',
+      'To process your USDT-to-PKR or PKR-to-USDT conversion requests and credit funds to your bank or wallet.',
       'To detect, prevent, and investigate fraud, scams, money laundering, and unauthorised account access.',
       'To provide responsive customer support in English and Urdu.',
       'To improve the CoinSensei app, fix bugs, and add the features customers ask for.',
@@ -124,7 +124,7 @@ const SECTIONS: Section[] = [
       {
         icon: 'handshake',
         title: 'Contract',
-        desc: 'To deliver the exchange service you signed up for, including processing trades and refunds.',
+        desc: 'To deliver the virtual asset service you signed up for, including processing conversions and refunds.',
       },
       {
         icon: 'verified_user',
@@ -417,8 +417,8 @@ export default function PrivacyPolicy() {
             transition={{ duration: 0.6, delay: 0.12 }}
             className="text-[--color-text-sec] text-center text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            How CoinSensei collects, uses, and protects your information when you exchange USDT and
-            PKR — written in plain English, with no fine-print surprises.
+            How CoinSensei collects, uses, and protects your information when you convert virtual assets
+            and PKR — written in plain English, with no fine-print surprises.
           </motion.p>
 
           {/* Meta strip */}
@@ -566,7 +566,7 @@ export default function PrivacyPolicy() {
                   })}
                 </ul>
 
-                <div className="mt-8 p-4 rounded-2xl border border-[--color-border] bg-white">
+                <div className="mt-8 p-4 rounded-2xl border border-[--color-border] bg-[--color-surface-card]">
                   <div className="flex items-center gap-2 mb-2">
                     <Icon name="mail" size={16} className="text-[--color-primary]" />
                     <p className="font-semibold text-sm text-[--color-text-pri]">Privacy questions?</p>
@@ -587,7 +587,7 @@ export default function PrivacyPolicy() {
             {/* Mobile TOC trigger */}
             <button
               onClick={() => setTocOpen(true)}
-              className="lg:hidden flex items-center justify-between w-full px-4 py-3 rounded-xl border border-[--color-border] bg-white text-sm font-semibold text-[--color-text-pri]"
+              className="lg:hidden flex items-center justify-between w-full px-4 py-3 rounded-xl border border-[--color-border] bg-[--color-surface-card] text-sm font-semibold text-[--color-text-pri]"
             >
               <span className="flex items-center gap-2">
                 <Icon name="list" size={18} className="text-[--color-primary]" />
@@ -644,7 +644,7 @@ export default function PrivacyPolicy() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl p-6 lg:hidden max-h-[80vh] overflow-y-auto"
+              className="fixed bottom-0 left-0 right-0 z-50 bg-[--color-surface-card] rounded-t-3xl p-6 lg:hidden max-h-[80vh] overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-4">
                 <p className="font-[family-name:var(--font-manrope)] font-bold text-lg">
@@ -692,7 +692,7 @@ function MetaCard({
   pulse?: boolean;
 }) {
   return (
-    <div className="relative flex items-center gap-3 px-4 py-3 rounded-xl bg-white border border-[--color-border]">
+    <div className="relative flex items-center gap-3 px-4 py-3 rounded-xl bg-[--color-surface-card] border border-[--color-border]">
       <div className="w-9 h-9 rounded-lg bg-[--color-primary]/10 text-[--color-primary] flex items-center justify-center">
         <Icon name={icon} size={18} />
       </div>
@@ -780,7 +780,7 @@ function SectionCard({
                 className={`w-full text-left rounded-2xl border transition-all duration-200 overflow-hidden ${
                   open
                     ? 'border-[--color-primary]/40 bg-[--color-primary]/5'
-                    : 'border-[--color-border] bg-white hover:border-[--color-primary]/30'
+                    : 'border-[--color-border] bg-[--color-surface-card] hover:border-[--color-primary]/30'
                 }`}
               >
                 <div className="flex items-center gap-4 px-5 py-4">
@@ -865,7 +865,7 @@ function ContactCard({
   href?: string;
 }) {
   const inner = (
-    <div className="flex items-start gap-3 p-4 rounded-2xl bg-white border border-[--color-border] hover:border-[--color-primary]/40 transition-colors h-full">
+    <div className="flex items-start gap-3 p-4 rounded-2xl bg-[--color-surface-card] border border-[--color-border] hover:border-[--color-primary]/40 transition-colors h-full">
       <div className="w-10 h-10 rounded-xl bg-[--color-primary]/10 text-[--color-primary] flex items-center justify-center shrink-0">
         <Icon name={icon} size={18} />
       </div>

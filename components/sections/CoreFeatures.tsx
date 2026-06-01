@@ -6,14 +6,14 @@ import { FEATURES } from '@/lib/constants';
 
 export default function CoreFeatures() {
   return (
-    <section id="features" className="section-py bg-white">
+    <section id="features" className="section-py bg-[--color-surface]">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.15 }}
             className="badge w-fit mx-auto mb-4"
           >
             Core Features
@@ -21,7 +21,7 @@ export default function CoreFeatures() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.15 }}
             transition={{ delay: 0.08 }}
             className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl text-[--color-text-pri] mb-4"
           >
@@ -30,11 +30,11 @@ export default function CoreFeatures() {
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.15 }}
             transition={{ delay: 0.14 }}
             className="text-[--color-text-sec] max-w-xl mx-auto leading-relaxed"
           >
-            Built specifically to solve the problems Pakistani crypto traders face every day.
+            Built specifically to solve the problems Pakistani virtual asset users face every day.
           </motion.p>
         </div>
 
@@ -45,11 +45,11 @@ export default function CoreFeatures() {
               key={f.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.15 }}
               transition={{ delay: i * 0.07, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               className="feature-card group p-8"
             >
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-colors duration-300 ${f.iconBg}`}>
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 bg-primary/10 border border-primary/20 text-primary group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 icon-hover-gradient">
                 <Icon name={f.icon} filled size={28} />
               </div>
               <h3 className="font-[family-name:var(--font-manrope)] font-bold text-xl text-[--color-text-pri] mb-3">

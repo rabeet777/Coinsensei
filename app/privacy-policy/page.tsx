@@ -6,11 +6,11 @@ import PrivacyPolicy from './PrivacyPolicy';
 export const metadata: Metadata = {
   title: 'Privacy Policy — CoinSensei',
   description:
-    "CoinSensei's Privacy Policy explains how we collect, use, store, and protect your personal information when you use Pakistan's trusted USDT to PKR exchange.",
+    "CoinSensei's Privacy Policy explains how we collect, use, store, and protect your personal information when you use Pakistan's secure virtual asset gateway.",
   keywords: [
     'CoinSensei privacy policy',
-    'USDT exchange privacy',
-    'PKR crypto privacy',
+    'virtual asset privacy',
+    'digital asset privacy',
     'Pakistan crypto data protection',
     'KYC privacy',
   ],
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Privacy Policy — CoinSensei',
     description:
-      'How CoinSensei collects, uses, and protects your information. Pakistan’s trusted USDT to PKR exchange.',
+      'How CoinSensei collects, uses, and protects your information. Pakistan’s secure virtual asset gateway.',
     type: 'article',
     locale: 'en_PK',
     url: '/privacy-policy',

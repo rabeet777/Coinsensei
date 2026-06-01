@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_LINKS, APP_LINKS } from '@/lib/constants';
 import Button from '@/components/ui/Button';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 export default function Navbar() {
   const [scrolled, setScrolled]   = useState(false);
@@ -30,7 +31,7 @@ export default function Navbar() {
         className={[
           'fixed inset-x-0 top-0 z-50 h-[72px] flex items-center transition-all duration-300',
           scrolled
-            ? 'bg-white/80 backdrop-blur-xl border-b border-[--color-border] shadow-sm'
+            ? 'bg-surface/80 backdrop-blur-xl border-b border-[--color-border] shadow-sm'
             : 'bg-transparent',
         ].join(' ')}
       >
@@ -40,7 +41,7 @@ export default function Navbar() {
             <img
               src="/coinsensei-logo.png"
               alt="CoinSensei logo"
-              className="h-30 md:h-36 w-auto object-contain"
+              className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
             />
           </Link>
 
@@ -59,25 +60,26 @@ export default function Navbar() {
           </ul>
 
           {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button variant="outline" size="sm" href={APP_LINKS.web}>
-              Open App
-            </Button>
-            <Button variant="primary" size="sm" href={APP_LINKS.ios}>
-              Download App
+          <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle />
+            <Button variant="primary" size="sm" href="#waitlist">
+              Join Waitlist
             </Button>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden w-10 h-10 flex flex-col justify-center items-center gap-1.5"
-            aria-label="Toggle menu"
-          >
-            <span className={`block w-5 h-0.5 bg-[--color-text-pri] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block w-5 h-0.5 bg-[--color-text-pri] transition-all duration-300 ${menuOpen ? 'opacity-0 scale-x-0' : ''}`} />
-            <span className={`block w-5 h-0.5 bg-[--color-text-pri] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-          </button>
+          {/* Mobile Actions (Theme Toggle + Hamburger) */}
+          <div className="md:hidden flex items-center gap-3">
+            <ThemeToggle />
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="w-10 h-10 flex flex-col justify-center items-center gap-1.5"
+              aria-label="Toggle menu"
+            >
+              <span className={`block w-5 h-0.5 bg-[--color-text-pri] transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+              <span className={`block w-5 h-0.5 bg-[--color-text-pri] transition-all duration-300 ${menuOpen ? 'opacity-0 scale-x-0' : ''}`} />
+              <span className={`block w-5 h-0.5 bg-[--color-text-pri] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            </button>
+          </div>
         </nav>
       </motion.header>
 
@@ -89,7 +91,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 bg-white pt-[72px] flex flex-col"
+            className="fixed inset-0 z-40 bg-surface pt-[72px] flex flex-col"
           >
             <div className="flex flex-col gap-1 p-6">
               {NAV_LINKS.map((link) => (
@@ -104,11 +106,8 @@ export default function Navbar() {
               ))}
             </div>
             <div className="flex flex-col gap-3 px-6 mt-auto pb-12">
-              <Button variant="outline" size="lg" href={APP_LINKS.web} className="w-full justify-center">
-                Open App
-              </Button>
-              <Button variant="primary" size="lg" href={APP_LINKS.ios} className="w-full justify-center">
-                Download App
+              <Button variant="primary" size="lg" href="#waitlist" onClick={() => setMenuOpen(false)} className="w-full justify-center">
+                Join Waitlist
               </Button>
             </div>
           </motion.div>

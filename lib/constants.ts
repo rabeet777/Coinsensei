@@ -12,65 +12,59 @@ export const USDT_RATE = 280.50;
 
 // ── Trust Badges (hero) ────────────────────────────────────
 export const TRUST_BADGES = [
-  '100% Guaranteed Payment',
-  'Zero Scam Policy',
-  'No Bank Holds',
-  '24/7 Support',
+  'On-Chain Transfers',
+  'Vibrant Live Rates',
+  'Secure Custody',
+  'Zero P2P Scam Risk',
 ] as const;
 
 // ── Stats (hero + product preview) ────────────────────────
 export const STATS = [
-  { value: '5,000+',  label: 'Trades Completed' },
-  { value: '₨2B+',    label: 'Volume Processed'  },
-  { value: '0',       label: 'Scam Reports'       },
-  { value: '4.9★',    label: 'Average Rating'     },
+  { value: '10,000+', label: 'Waitlist Spots' },
+  { value: '0%',      label: 'Hidden Fees'     },
+  { value: '256-bit', label: 'AES Encryption'  },
+  { value: 'Instant', label: 'On-Chain Transfer' },
 ] as const;
 
 // ── Trust Strip ────────────────────────────────────────────
 export const TRUST_ITEMS = [
-  { icon: 'verified',       color: 'text-green-600 bg-green-50',  title: '100% Payment Guaranteed', sub: 'Every trade, every time' },
-  { icon: 'shield',         color: 'text-blue-600 bg-blue-50',    title: 'Anti-Scam Verified',      sub: 'Registered business'     },
-  { icon: 'bolt',           color: 'text-cyan-600 bg-cyan-50',    title: 'Instant PKR Transfer',    sub: 'No bank holds ever'      },
-  { icon: 'support_agent',  color: 'text-amber-600 bg-amber-50',  title: '24/7 Support',            sub: 'Always here for you'     },
+  { icon: 'lock',           title: 'Secure & Regulated',      sub: 'Top-tier digital custodian' },
+  { icon: 'swap_horiz',     title: 'Instant Transfers',       sub: 'Zero latency on-chain conversions' },
+  { icon: 'trending_up',    title: 'Vibrant Live Rates',      sub: 'Always real-time pricing' },
+  { icon: 'account_balance',title: 'Direct PKR Settlement',   sub: 'No third-party bank hold risk' },
 ] as const;
 
 // ── Core Features ──────────────────────────────────────────
 export const FEATURES = [
   {
-    icon: 'verified',
-    iconBg: 'bg-green-100 text-green-700 group-hover:bg-green-600 group-hover:text-white',
-    title: 'Guaranteed Payment',
-    desc: 'Your PKR is secured before or simultaneously with your USDT transfer. Your money is protected from the moment you start a trade.',
+    icon: 'account_balance_wallet',
+    title: 'Secure On-Chain Custody',
+    desc: 'Keep your digital assets secure. Advanced multi-sig wallet security and full compliance protect your assets around the clock.',
   },
   {
-    icon: 'shield_lock',
-    iconBg: 'bg-[--color-primary]/10 text-[--color-primary] group-hover:bg-[--color-primary] group-hover:text-white',
-    title: 'Zero Scam Risk',
-    desc: 'CoinSensei is a verified, registered business. Our identity is public, our process is transparent, and every trade is protected.',
+    icon: 'swap_calls',
+    title: 'Zero Latency Conversions',
+    desc: 'Instantly convert between PKR and USDT. Real-time rate execution makes lock-ins simple, secure, and transparent.',
   },
   {
-    icon: 'bolt',
-    iconBg: 'bg-cyan-100 text-cyan-700 group-hover:bg-cyan-600 group-hover:text-white',
-    title: 'Instant PKR Transfer',
-    desc: 'Receive PKR directly to HBL, Meezan, Easypaisa, or JazzCash. Clean payment sources that never trigger bank holds.',
+    icon: 'dashboard_customize',
+    title: 'On-Chain Transfers',
+    desc: 'Move funds across networks securely. Coinsensei supports major virtual asset transfer protocols with low transaction fees.',
+  },
+  {
+    icon: 'partner_exchange',
+    title: 'Preparation for Tokenization',
+    desc: 'Step into the future of global finance. Learn, trade, and prepare for tokenized asset ownership in Pakistan.',
   },
   {
     icon: 'support_agent',
-    iconBg: 'bg-amber-100 text-amber-600 group-hover:bg-amber-600 group-hover:text-white',
-    title: '24/7 Support',
-    desc: 'Our dedicated team responds in Urdu and English around the clock — through the app and all support channels.',
-  },
-  {
-    icon: 'price_check',
-    iconBg: 'bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white',
-    title: 'Best Market Rates',
-    desc: 'The most competitive USDT-to-PKR rates in the market. No hidden fees, no surprise deductions. What you see is what you get.',
+    title: 'Dedicated Urdu Support',
+    desc: 'Access custom in-app support in Urdu and English. Our team is available around the clock to guide you on-chain.',
   },
   {
     icon: 'no_accounts',
-    iconBg: 'bg-rose-100 text-rose-600 group-hover:bg-rose-600 group-hover:text-white',
-    title: 'No Account Needed',
-    desc: 'Use our app without lengthy sign-ups. Start exchanging in minutes — fast, simple, and fully guided inside the CoinSensei app.',
+    title: 'Waitlist Privilege',
+    desc: 'Join the waitlist today. Early users get first access to live features, premium rate lock-ins, and zero service fees.',
   },
 ] as const;
 
@@ -78,24 +72,21 @@ export const FEATURES = [
 export const STEPS = [
   {
     n: 1,
-    icon: 'download',
-    iconBg: 'bg-[--color-primary]/10 text-[--color-primary]',
-    title: 'Download the App',
-    desc: 'Get the CoinSensei app on iOS or Android. Set up your account in under 2 minutes.',
+    icon: 'mail',
+    title: 'Join the Waitlist',
+    desc: 'Register with your email to lock in your early position on Pakistan’s premier virtual asset gateway.',
   },
   {
     n: 2,
-    icon: 'send_money',
-    iconBg: 'bg-[--color-primary]/10 text-[--color-primary]',
-    title: 'Enter Amount & Send USDT',
-    desc: 'Enter how much USDT you want to sell. Transfer to our verified wallet address directly in the app.',
+    icon: 'how_to_reg',
+    title: 'Secure Invitation',
+    desc: 'Receive your personalized invite code to download the beta client and verify your identity securely.',
   },
   {
     n: 3,
-    icon: 'account_balance',
-    iconBg: 'bg-green-100 text-green-600',
-    title: 'Receive PKR — Guaranteed',
-    desc: 'PKR lands in your bank account instantly. HBL, Meezan, Easypaisa, JazzCash — clean transfer, no holds.',
+    icon: 'currency_exchange',
+    title: 'Access Virtual Assets',
+    desc: 'Start converting PKR/USDT, transferring on-chain, and preparing for the tokenized future.',
   },
 ] as const;
 
@@ -129,23 +120,23 @@ export const SUPPORTED_BANKS = [
 export const SECURITY_FEATURES = [
   {
     icon: 'verified_user',
-    title: 'Payment Escrow Guarantee',
-    desc: 'Your PKR is secured before USDT transfer completes. Funds go straight to your bank — we never hold your money.',
+    title: 'Multi-Sig Escrow Custody',
+    desc: 'Your virtual assets are protected by advanced multi-signature cold storage. We never hold your PKR and settle directly.',
   },
   {
     icon: 'business',
-    title: 'Registered & Verified Business',
-    desc: 'We are not anonymous. CoinSensei is a registered business with a verifiable identity — unlike P2P strangers or unverified OTC dealers.',
+    title: 'Registered Corporate Gateway',
+    desc: 'We operate as a registered digital portal. Your transactions are secure and auditable, avoiding informal P2P security traps.',
   },
   {
     icon: 'account_balance',
-    title: 'Clean Funds — Zero Bank Risk',
-    desc: 'Our payment sources are clean and compliant. No frozen accounts, no bank flags. Your PKR arrives without any compliance alerts.',
+    title: 'Clean Banking Compliance',
+    desc: 'Our payment settlement channels are fully compliant. Say goodbye to flagged cards, frozen funds, and compliance warnings.',
   },
   {
     icon: 'lock',
-    title: 'Full Transaction Transparency',
-    desc: 'Every transaction is logged, tracked, and protected. Full trade history available in the app. Complete transparency, always.',
+    title: 'On-Chain Transparency',
+    desc: 'Every asset conversion and transfer is logged on-chain. Track your transactions in real-time with absolute clarity.',
   },
 ] as const;
 
@@ -155,30 +146,30 @@ export const TESTIMONIALS = [
     initials: 'AR',
     name: 'Ahmed Raza',
     city: 'Lahore',
-    quote: '"Pehle P2P pe sell karta tha, payment 3 din baad aati thi bank se. CoinSensei app pe pehli transaction mein hi same-day payment mili. Zabardast service hai!"',
+    quote: '"Main waitlist member tha aur beta access mila. PKR to USDT exchange aur on-chain transfer bohot hi clean aur smooth tha, no risk at all!"',
   },
   {
     initials: 'FK',
     name: 'Faisal Khan',
     city: 'Karachi',
-    quote: '"Main pehle ek OTC dealer se scam ho gaya tha — 500 USDT leke bhaag gaya. CoinSensei pe guarantee hai, pehle payment phir USDT. 100% safe!"',
+    quote: '"Finally a platform in Pakistan that doesn\'t feel like a P2P gamble. The waitlist privilege rate locks are incredible."',
   },
   {
     initials: 'UA',
     name: 'Usman Ali',
     city: 'Islamabad',
-    quote: '"Best rates in market, payment within minutes. Already 10+ trades kar chuka hoon CoinSensei app pe. Poore family ko recommend kiya hai."',
+    quote: '"Preparing for tokenized assets in Pakistan is a huge step. Coinsensei is building the exact bridge we need for the future of finance."',
   },
-] as const;
+  ] as const;
 
 // ── Why Choose comparison ──────────────────────────────────
 export const COMPARISON_ROWS = [
-  { feature: 'Payment Guaranteed',        cs: true,  p2p: false, otc: false },
-  { feature: 'No Bank Holds / Freezes',   cs: true,  p2p: false, otc: null  },
-  { feature: 'Verified Business Identity',cs: true,  p2p: false, otc: false },
-  { feature: 'Same-Day Payment',          cs: true,  p2p: false, otc: null  },
-  { feature: '24/7 Support',              cs: true,  p2p: false, otc: null  },
-  { feature: 'Dedicated App',             cs: true,  p2p: false, otc: false },
+  { feature: 'On-Chain Asset Access',     cs: true,  p2p: false, otc: null  },
+  { feature: 'No Bank Hold/Freeze Risks',  cs: true,  p2p: false, otc: null  },
+  { feature: 'Regulated Custody Gateway',  cs: true,  p2p: false, otc: false },
+  { feature: 'Urdu Live Support',          cs: true,  p2p: false, otc: false },
+  { feature: 'Direct PKR Settlements',     cs: true,  p2p: true,  otc: null  },
+  { feature: 'Tokenized Finance Access',   cs: true,  p2p: false, otc: false },
 ] as const;
 
 // ── App Store Links ────────────────────────────────────────

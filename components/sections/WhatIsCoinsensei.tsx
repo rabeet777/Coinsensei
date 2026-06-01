@@ -3,26 +3,25 @@
 import { motion } from 'framer-motion';
 import Icon from '@/components/ui/Icon';
 import Button from '@/components/ui/Button';
-import { APP_LINKS } from '@/lib/constants';
 
 const PROBLEMS = [
-  'Selling on P2P — payment gets stuck in your bank for days',
-  'Random OTC dealers disappear after you send USDT',
-  'Bank accounts flagged or frozen due to crypto-related activity',
-  'No one to contact when something goes wrong',
+  'Limited global connectivity with traditional fiat-only channels',
+  'Informal P2P networks exposing users to high scam risks and freezes',
+  'Lack of compliant, transparent gateways for local settlements',
+  'Siloed financial systems offering zero access to tokenization',
 ];
 
 const SOLUTIONS = [
-  'PKR secured before or simultaneously with your USDT transfer',
-  'Verified, registered business — not anonymous',
-  'Clean payment channels — zero bank freezes or flags',
-  'Dedicated in-app support on every transaction',
+  'Seamless integration with global digital finance systems',
+  'A registered corporate portal ensuring clean PKR and safety',
+  'Verifiable on-chain transfers with multi-sig custody protection',
+  'Simple tools to access virtual assets and stable digital value',
 ];
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
+  viewport: { once: false, amount: 0.15 },
   transition: { duration: 0.6, delay, ease: 'easeOut' as const },
 });
 
@@ -37,18 +36,18 @@ export default function WhatIsCoinsensei() {
             {/* Problem */}
             <motion.div
               {...fadeUp(0)}
-              className="p-6 rounded-[1.5rem] bg-red-50 border border-red-100"
+              className="feature-card p-6 rounded-[1.5rem] bg-[--color-surface-mid] border border-[--color-border]"
             >
               <div className="flex items-center gap-3 mb-4">
-                <Icon name="warning" filled size={24} className="text-red-500" />
-                <h4 className="font-[family-name:var(--font-manrope)] font-bold text-lg text-red-700">
-                  The Problem You&apos;re Facing
+                <Icon name="warning" filled size={24} className="text-[--color-text-muted]" />
+                <h4 className="font-[family-name:var(--font-manrope)] font-bold text-lg text-[--color-text-pri]">
+                  Traditional Finance Limits
                 </h4>
               </div>
               <ul className="space-y-2.5">
                 {PROBLEMS.map((p) => (
-                  <li key={p} className="flex items-start gap-2 text-sm text-red-600">
-                    <Icon name="cancel" filled size={16} className="text-red-400 shrink-0 mt-0.5" />
+                  <li key={p} className="flex items-start gap-2 text-sm text-[--color-text-sec]">
+                    <Icon name="cancel" filled size={16} className="text-[--color-text-muted] shrink-0 mt-0.5" />
                     {p}
                   </li>
                 ))}
@@ -58,18 +57,18 @@ export default function WhatIsCoinsensei() {
             {/* Solution */}
             <motion.div
               {...fadeUp(0.1)}
-              className="p-6 rounded-[1.5rem] bg-green-50 border border-green-100"
+              className="feature-card p-6 rounded-[1.5rem] bg-primary/5 border border-primary/25 hover:border-primary/50"
             >
               <div className="flex items-center gap-3 mb-4">
-                <Icon name="check_circle" filled size={24} className="text-green-500" />
-                <h4 className="font-[family-name:var(--font-manrope)] font-bold text-lg text-green-700">
-                  The CoinSensei Guarantee
+                <Icon name="check_circle" filled size={24} className="text-primary" />
+                <h4 className="font-[family-name:var(--font-manrope)] font-bold text-lg text-[--color-text-pri]">
+                  The Coinsensei Vision
                 </h4>
               </div>
               <ul className="space-y-2.5">
                 {SOLUTIONS.map((s) => (
-                  <li key={s} className="flex items-start gap-2 text-sm text-green-700">
-                    <Icon name="check_circle" filled size={16} className="text-green-500 shrink-0 mt-0.5" />
+                  <li key={s} className="flex items-start gap-2 text-sm text-[--color-text-sec]">
+                    <Icon name="check_circle" filled size={16} className="text-primary shrink-0 mt-0.5" />
                     {s}
                   </li>
                 ))}
@@ -80,34 +79,27 @@ export default function WhatIsCoinsensei() {
           {/* Text column */}
           <div className="space-y-6">
             <motion.div {...fadeUp(0.05)}>
-              <div className="badge w-fit">Who We Are</div>
+              <div className="badge w-fit">Vision & Future</div>
             </motion.div>
 
             <motion.h2
               {...fadeUp(0.1)}
               className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl text-[--color-text-pri] leading-tight"
             >
-              Pakistan&apos;s Most Trusted USDT Exchange
+              Digitalizing Pakistan, one transaction at a time.
             </motion.h2>
 
-            <motion.p {...fadeUp(0.15)} className="text-lg text-[--color-text-sec] leading-relaxed">
-              CoinSensei was built by Pakistanis, for Pakistanis. We saw the daily struggles
-              of crypto traders — scams, frozen payments, unreliable dealers — and decided to
-              fix it for good.
+            <motion.p {...fadeUp(0.15)} className="text-lg text-[--color-text-sec] leading-relaxed font-medium">
+              Pakistan’s financial future is becoming more digital, global, and asset-backed. Coinsensei is here to help users participate in this shift through a simple mobile platform designed for virtual asset access, conversion, and transfers.
             </motion.p>
 
             <motion.p {...fadeUp(0.2)} className="text-[--color-text-sec] leading-relaxed">
-              We are a registered digital exchange service that{' '}
-              <strong className="text-[--color-text-pri] font-semibold">
-                guarantees your PKR
-              </strong>{' '}
-              the moment we receive your USDT. No waiting. No risk. No headaches. Just fast,
-              safe, and reliable crypto exchange — all inside our app.
+              We are building a bridge to global connectivity and stable digital value. By introducing compliant on-chain transfers and preparing for the tokenization of assets, we enable secure financial accessibility for all Pakistanis.
             </motion.p>
 
             <motion.div {...fadeUp(0.25)}>
-              <Button variant="primary" size="lg" href={APP_LINKS.web}>
-                Start Trading Safely
+              <Button variant="primary" size="lg" href="#waitlist">
+                Join the Waitlist
                 <Icon name="arrow_forward" size={20} className="text-white" />
               </Button>
             </motion.div>

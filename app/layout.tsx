@@ -17,13 +17,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "CoinSensei — Pakistan's Trusted USDT to PKR Exchange",
+  title: "CoinSensei — Digitalizing Pakistan's Virtual Asset Future",
   description:
-    "Sell USDT and receive PKR — instantly and guaranteed. Pakistan's safest crypto exchange. No scams, no bank holds.",
-  keywords: ['USDT', 'PKR', 'Pakistan', 'crypto exchange', 'CoinSensei', 'USDT to PKR'],
+    "Secure, simple, and modern platform for virtual assets in Pakistan. Join the waitlist for seamless PKR & USDT conversions, live rates, and compliant on-chain transfers.",
+  keywords: ['CoinSensei', 'Virtual Assets Pakistan', 'USDT', 'PKR', 'On-chain transfers', 'Tokenized finance', 'Pakistan Web3'],
   openGraph: {
-    title: "CoinSensei — Pakistan's Trusted USDT to PKR Exchange",
-    description: 'Guaranteed payment. Zero scam risk. Instant PKR transfers.',
+    title: "CoinSensei — Digitalizing Pakistan's Virtual Asset Future",
+    description: 'Secure, simple, and modern platform for virtual assets in Pakistan. Join the waitlist today.',
     type: 'website',
     locale: 'en_PK',
   },
@@ -31,8 +31,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${inter.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme') || 'dark';
+                  if (theme === 'light') {
+                    document.documentElement.classList.add('light');
+                  } else {
+                    document.documentElement.classList.remove('light');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         <meta
           name="facebook-domain-verification"
           content="oyxvmp766k71l9wv8gop2j5y9ssfk9"
