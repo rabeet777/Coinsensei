@@ -1,9 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import Icon from '@/components/ui/Icon';
 import Button from '@/components/ui/Button';
 import { TRUST_BADGES, APP_LINKS } from '@/lib/constants';
+import ParticlesBackground from '@/components/ui/ParticlesBackground';
 
 function AppShowcase() {
   return (
@@ -16,25 +18,25 @@ function AppShowcase() {
 
       {/* Centered Phone Container */}
       <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.92, rotate: -2 }}
+        initial={{ opacity: 0, y: 12, scale: 0.97, rotate: -2 }}
         animate={{ 
           opacity: 1, 
-          y: [0, -16, 0], 
+          y: [0, -8, 0], 
           scale: 1,
           rotate: -2
         }}
         whileHover={{
-          scale: 1.06,
-          rotateY: -12,
-          rotateX: 8,
-          z: 30,
+          scale: 1.02,
+          rotateY: -4,
+          rotateX: 3,
+          z: 10,
           transition: { duration: 0.4, ease: 'easeOut' }
         }}
         transition={{
           opacity: { duration: 0.8, delay: 0.2 },
           scale: { duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] },
           y: { 
-            duration: 6, 
+            duration: 7, 
             repeat: Infinity, 
             ease: 'easeInOut'
           }
@@ -54,13 +56,44 @@ function AppShowcase() {
 }
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  // Opposite-shifting shadow mappings
+  const shadowX = useTransform(mouseX, [-600, 600], [30, -30]);
+  const shadowY = useTransform(mouseY, [-600, 600], [30, -30]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const xVal = e.clientX - rect.left - rect.width / 2;
+    const yVal = e.clientY - rect.top - rect.height / 2;
+    mouseX.set(xVal);
+    mouseY.set(yVal);
+  };
+
+  const handleMouseLeave = () => {
+    animate(mouseX, 0, { duration: 0.6, ease: 'easeOut' });
+    animate(mouseY, 0, { duration: 0.6, ease: 'easeOut' });
+  };
+
   return (
     <section
       id="hero"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className="relative min-h-screen flex items-center overflow-hidden"
       style={{ background: 'var(--hero-bg)' }}
     >
-      <div className="absolute inset-0 z-0">
+      {/* Dynamic 3D Ambient Backdrop Shadow */}
+      <motion.div
+        style={{ x: shadowX, y: shadowY }}
+        className="absolute top-1/4 left-1/3 w-[400px] h-[400px] rounded-full bg-primary/6 dark:bg-primary/3 blur-[140px] z-0 pointer-events-none select-none"
+      />
+
+      <div className="absolute inset-0 z-0 pointer-events-none select-none">
         <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/90 to-transparent z-10"></div>
         <img
           alt="Pakistan Landscape Map"
@@ -68,6 +101,7 @@ export default function Hero() {
           style={{ filter: 'var(--hero-img-filter)', opacity: 'var(--hero-img-opacity)' }}
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcg6M-UCHGhsKdNTJ1y0_7M-pEEusKawY0cRTkrtHd7uS_hkQjTJKyb_7Yf2vO4ddgoPaaRWL7-maqDw0oVFCykBQVu6YgGznXGrwwCIOGpo4P-1wwcMv1FnD5iYf_NDYbGETpKaVeBP_MscrKhiJqu4PIA1odkrw1lKfarOLN6op1EOKhdLoJTJp-aHMQrnq4VstqnmYE-JnVydhJ9V7ePbJLYCfUSJ2nDOM0c3c7UeIYgcAZba5ZWB4mFXi4n4U3Fr-T3x2WiAE"
         />
+        <ParticlesBackground quantity={80} className="opacity-45" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-28 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
@@ -87,17 +121,17 @@ export default function Hero() {
 
           {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="font-[family-name:var(--font-manrope)] font-extrabold text-5xl md:text-6xl leading-[1.08] tracking-tight text-[--color-text-pri]"
+            className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.08] tracking-tight text-[--color-text-pri]"
           >
             Digitalizing Pakistan’s <span className="gradient-text">Virtual Asset</span> Future
           </motion.h1>
 
           {/* Subheading */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.22 }}
             className="text-lg text-[--color-text-sec] max-w-lg leading-relaxed"
@@ -107,7 +141,7 @@ export default function Hero() {
 
           {/* Trust badges */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.32 }}
             className="flex flex-wrap gap-4"
@@ -122,7 +156,7 @@ export default function Hero() {
 
           {/* Waitlist Action Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.42 }}
             className="flex flex-wrap gap-4"

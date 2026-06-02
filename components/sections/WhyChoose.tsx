@@ -1,115 +1,190 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useMotionValue, useTransform, useMotionTemplate, animate } from 'framer-motion';
 import Icon from '@/components/ui/Icon';
-import { COMPARISON_ROWS } from '@/lib/constants';
 
-function Cell({ value }: { value: boolean | null }) {
-  if (value === true)  return <Icon name="check_circle" filled size={22} className="text-[--color-primary] mx-auto" />;
-  if (value === false) return <Icon name="cancel"       filled size={22} className="text-[--color-text-muted] mx-auto" />;
-  return                      <Icon name="remove_circle" filled size={22} className="text-[--color-text-muted] mx-auto" />;
+const PILLARS = [
+  {
+    icon: 'bolt',
+    title: 'Simple',
+    desc: 'A clean experience for users who want easy access to digital assets.',
+  },
+  {
+    icon: 'security',
+    title: 'Secure',
+    desc: 'Account verification, transaction monitoring, and safer withdrawal flows.',
+  },
+  {
+    icon: 'insights',
+    title: 'Future-Ready',
+    desc: 'Built with virtual assets, stablecoins, and tokenized finance in mind.',
+  },
+] as const;
+
+function PillarCard({ pillar, index }: { pillar: typeof PILLARS[number]; index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Spotlight coordinate values
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // 3D rotation coordinates
+  const xRot = useMotionValue(0);
+  const yRot = useMotionValue(0);
+
+  const rotateX = useTransform(yRot, [-120, 120], [8, -8]);
+  const rotateY = useTransform(xRot, [-120, 120], [-8, 8]);
+
+  const spotlightBg = useMotionTemplate`radial-gradient(circle 80px at ${mouseX}px ${mouseY}px, rgba(0, 216, 255, 0.15) 0%, transparent 100%)`;
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const xPos = e.clientX - rect.left;
+    const yPos = e.clientY - rect.top;
+
+    mouseX.set(xPos);
+    mouseY.set(yPos);
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    xRot.set(xPos - centerX);
+    yRot.set(yPos - centerY);
+  };
+
+  const handleMouseLeave = () => {
+    animate(mouseX, 0, { duration: 0.5 });
+    animate(mouseY, 0, { duration: 0.5 });
+    animate(xRot, 0, { duration: 0.5 });
+    animate(yRot, 0, { duration: 0.5 });
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.15 }}
+      transition={{ delay: index * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+      }}
+      className="feature-card relative group p-8 bg-[--color-surface-card] border border-[--color-border] rounded-[2rem] overflow-hidden shadow-sm flex flex-col justify-between cursor-pointer select-none"
+    >
+      {/* 3D Spotlight highlight overlay */}
+      <motion.div
+        style={{ background: spotlightBg }}
+        className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+      />
+
+      <div className="relative z-10 space-y-5" style={{ transformStyle: 'preserve-3d' }}>
+        {/* Icon */}
+        <div
+          className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center icon-hover-gradient shrink-0 transition-transform duration-300"
+          style={{ transform: 'translateZ(20px)' }}
+        >
+          <Icon name={pillar.icon} filled size={24} className="group-hover:text-white" />
+        </div>
+
+        {/* Copy */}
+        <div className="space-y-2" style={{ transform: 'translateZ(10px)' }}>
+          <h3 className="font-[family-name:var(--font-manrope)] font-bold text-lg text-[--color-text-pri] group-hover:text-primary transition-colors duration-300">
+            {pillar.title}
+          </h3>
+          <p className="text-[--color-text-sec] leading-relaxed text-sm">
+            {pillar.desc}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
 }
 
 export default function WhyChoose() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const shadowX = useTransform(mouseX, [-500, 500], [25, -25]);
+  const shadowY = useTransform(mouseY, [-500, 500], [25, -25]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const xVal = e.clientX - rect.left - rect.width / 2;
+    const yVal = e.clientY - rect.top - rect.height / 2;
+    mouseX.set(xVal);
+    mouseY.set(yVal);
+  };
+
+  const handleMouseLeave = () => {
+    animate(mouseX, 0, { duration: 0.5 });
+    animate(mouseY, 0, { duration: 0.5 });
+  };
+
   return (
-    <section id="why-us" className="section-py bg-[--color-surface-mid]">
-      <div className="max-w-7xl mx-auto px-6">
+    <section
+      id="why-us"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="section-py bg-[--color-surface-mid] relative overflow-hidden"
+    >
+      {/* Dynamic 3D Ambient Backdrop Shadow */}
+      <motion.div
+        style={{ x: shadowX, y: shadowY }}
+        className="absolute top-1/4 right-1/3 w-[360px] h-[360px] rounded-full bg-primary/6 dark:bg-primary/3 blur-[130px] z-0 pointer-events-none select-none"
+      />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.15 }}
             className="badge w-fit mx-auto mb-4"
           >
-            Why CoinSensei
+            Why Coinsensei
           </motion.div>
+          
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.15 }}
             transition={{ delay: 0.08 }}
-            className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl text-[--color-text-pri] mb-4"
+            className="font-[family-name:var(--font-manrope)] font-extrabold text-2xl sm:text-3xl md:text-4xl text-[--color-text-pri] mb-4"
           >
-            The Safest Choice in Pakistan
+            Built for the next generation of digital finance.
           </motion.h2>
+          
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.15 }}
             transition={{ delay: 0.14 }}
-            className="text-[--color-text-sec] max-w-xl mx-auto leading-relaxed"
+            className="text-[--color-text-sec] max-w-2xl mx-auto leading-relaxed"
           >
-            See how CoinSensei compares to the alternatives Pakistani virtual asset users currently use.
+            Coinsensei is not just another conversion app. It is designed as a foundation for Pakistan’s growing virtual asset ecosystem — combining simplicity, security, and accessibility in one mobile platform.
           </motion.p>
         </div>
 
-        {/* Comparison Table */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
-          transition={{ delay: 0.1 }}
-          className="bg-[--color-surface-card] rounded-[2rem] border border-[--color-border] overflow-hidden shadow-sm mb-10"
-        >
-          {/* Table header */}
-          <div className="grid grid-cols-4 bg-[--color-surface-mid] px-6 py-4 text-center text-xs font-bold uppercase tracking-widest text-[--color-text-muted]" style={{ fontFamily: 'var(--font-inter)' }}>
-            <div className="text-left">Feature</div>
-            <div className="text-[--color-primary] font-extrabold text-sm">CoinSensei</div>
-            <div>P2P Platforms</div>
-            <div>OTC Dealers</div>
-          </div>
-
-          <div className="divide-y divide-[--color-border]">
-            {COMPARISON_ROWS.map((row, i) => (
-              <div
-                key={row.feature}
-                className={`grid grid-cols-4 px-6 py-4 items-center text-center text-sm ${i % 2 === 1 ? 'bg-[--color-surface]/50' : ''}`}
-              >
-                <div className="text-left font-semibold text-[--color-text-pri]">{row.feature}</div>
-                <div><Cell value={row.cs}  /></div>
-                <div><Cell value={row.p2p} /></div>
-                <div><Cell value={row.otc} /></div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Bottom cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.15 }}
-            className="feature-card p-8"
-          >
-            <h4 className="font-[family-name:var(--font-manrope)] font-bold text-xl text-[--color-text-pri] mb-4 flex items-center gap-2">
-              <Icon name="public" filled size={22} className="text-[--color-primary]" />
-              Pakistan-First Approach
-            </h4>
-            <p className="text-[--color-text-sec] leading-relaxed text-sm">
-              We understand Pakistan&apos;s banking system, regulatory landscape, and the trust
-              issues local crypto traders face daily. Our entire service is designed around your
-              needs — PKR settlement, local bank support, and Urdu assistance inside the app.
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.15 }}
-            className="feature-card p-8"
-          >
-            <h4 className="font-[family-name:var(--font-manrope)] font-bold text-xl text-[--color-text-pri] mb-4 flex items-center gap-2">
-              <Icon name="handshake" filled size={22} className="text-[--color-primary]" />
-              Built on Accountability
-            </h4>
-            <p className="text-[--color-text-sec] leading-relaxed text-sm">
-              Every transaction has a record. We stand behind every trade with our business
-              reputation on the line. If anything goes wrong, we make it right — period. That
-              is the CoinSensei guarantee.
-            </p>
-          </motion.div>
+        {/* 3 Pillars Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: 1000 }}>
+          {PILLARS.map((pillar, i) => (
+            <PillarCard
+              key={pillar.title}
+              pillar={pillar}
+              index={i}
+            />
+          ))}
         </div>
+
       </div>
     </section>
   );

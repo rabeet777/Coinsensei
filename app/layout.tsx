@@ -21,6 +21,13 @@ export const metadata: Metadata = {
   description:
     "Secure, simple, and modern platform for virtual assets in Pakistan. Join the waitlist for seamless PKR & USDT conversions, live rates, and compliant on-chain transfers.",
   keywords: ['CoinSensei', 'Virtual Assets Pakistan', 'USDT', 'PKR', 'On-chain transfers', 'Tokenized finance', 'Pakistan Web3'],
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    apple: '/icon.png',
+  },
   openGraph: {
     title: "CoinSensei — Digitalizing Pakistan's Virtual Asset Future",
     description: 'Secure, simple, and modern platform for virtual assets in Pakistan. Join the waitlist today.',

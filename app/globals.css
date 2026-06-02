@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Custom variant to bind dark: utilities to the absence of the .light class */
+@custom-variant dark (&:where(:not(.light), :not(.light) *));
+
 @theme {
   /* Colors linked to CSS Variables */
   --color-primary:       var(--primary);

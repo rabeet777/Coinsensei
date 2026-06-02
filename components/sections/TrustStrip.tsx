@@ -12,14 +12,14 @@ export default function TrustStrip() {
           {TRUST_ITEMS.map((item, i) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.15 }}
               transition={{ delay: i * 0.08, duration: 0.5, ease: 'easeOut' }}
               whileHover={{ y: -3 }}
-              className="flex items-center gap-3 group cursor-default"
+              className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-3 group cursor-default"
             >
-              <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-[--color-primary]/10 border border-[--color-primary]/20 text-[--color-primary] icon-hover-gradient group-hover:scale-105 group-hover:rotate-6 transition-all duration-300">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-[--color-primary]/10 border border-[--color-primary]/20 text-[--color-primary] icon-hover-gradient group-hover:scale-[1.04] transition-all duration-300">
                 <Icon name={item.icon} filled size={20} className="group-hover:text-white transition-colors duration-300" />
               </div>
               <div>

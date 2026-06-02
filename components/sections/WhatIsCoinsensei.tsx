@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import Icon from '@/components/ui/Icon';
 import Button from '@/components/ui/Button';
 
@@ -19,15 +20,47 @@ const SOLUTIONS = [
 ];
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 12 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: false, amount: 0.15 },
   transition: { duration: 0.6, delay, ease: 'easeOut' as const },
 });
 
 export default function WhatIsCoinsensei() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const shadowX = useTransform(mouseX, [-500, 500], [25, -25]);
+  const shadowY = useTransform(mouseY, [-500, 500], [25, -25]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const xVal = e.clientX - rect.left - rect.width / 2;
+    const yVal = e.clientY - rect.top - rect.height / 2;
+    mouseX.set(xVal);
+    mouseY.set(yVal);
+  };
+
+  const handleMouseLeave = () => {
+    animate(mouseX, 0, { duration: 0.5 });
+    animate(mouseY, 0, { duration: 0.5 });
+  };
+
   return (
-    <section id="about" className="section-py bg-[--color-surface]">
+    <section
+      id="about"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="section-py bg-[--color-surface] relative overflow-hidden"
+    >
+      {/* Dynamic 3D Ambient Backdrop Shadow */}
+      <motion.div
+        style={{ x: shadowX, y: shadowY }}
+        className="absolute top-1/3 right-1/4 w-[350px] h-[350px] rounded-full bg-primary/6 dark:bg-primary/3 blur-[125px] z-0 pointer-events-none select-none"
+      />
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
@@ -84,7 +117,7 @@ export default function WhatIsCoinsensei() {
 
             <motion.h2
               {...fadeUp(0.1)}
-              className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl text-[--color-text-pri] leading-tight"
+              className="font-[family-name:var(--font-manrope)] font-extrabold text-3xl sm:text-4xl text-[--color-text-pri] leading-tight"
             >
               Digitalizing Pakistan, one transaction at a time.
             </motion.h2>

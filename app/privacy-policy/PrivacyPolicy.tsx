@@ -403,16 +403,16 @@ export default function PrivacyPolicy() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.05 }}
-            className="font-[family-name:var(--font-manrope)] text-center font-extrabold text-5xl md:text-6xl tracking-tight mb-5"
+            className="font-[family-name:var(--font-manrope)] text-center font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight mb-5"
           >
             Your privacy is <span className="gradient-text">non-negotiable</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.12 }}
             className="text-[--color-text-sec] text-center text-lg max-w-2xl mx-auto leading-relaxed"

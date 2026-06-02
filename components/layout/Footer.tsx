@@ -6,17 +6,17 @@ const COLS = [
   {
     heading: 'Services',
     links: [
-      { label: 'Virtual Assets Access', href: '#features' },
-      { label: 'On-Chain Transfers',   href: '#features' },
-      { label: 'Waitlist SignUp',      href: '#waitlist' },
+      { label: 'Virtual Assets Access', href: '/#features' },
+      { label: 'On-Chain Transfers',   href: '/#features' },
+      { label: 'Waitlist SignUp',      href: '/#waitlist' },
     ],
   },
   {
     heading: 'Company',
     links: [
-      { label: 'About Us',       href: '#about'    },
-      { label: 'Security',       href: '#security' },
-      { label: 'Why CoinSensei', href: '#why-us'   },
+      { label: 'About Us',       href: '/#about'    },
+      { label: 'Security',       href: '/#security' },
+      { label: 'Why CoinSensei', href: '/#why-us'   },
     ],
   },
   {

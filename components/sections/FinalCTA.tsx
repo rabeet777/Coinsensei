@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 import Icon from '@/components/ui/Icon';
+import ParticlesBackground from '@/components/ui/ParticlesBackground';
 
 export default function FinalCTA() {
   const [email, setEmail] = useState('');
@@ -14,9 +15,41 @@ export default function FinalCTA() {
     setSubmitted(true);
   };
 
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const shadowX = useTransform(mouseX, [-500, 500], [25, -25]);
+  const shadowY = useTransform(mouseY, [-500, 500], [25, -25]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const xVal = e.clientX - rect.left - rect.width / 2;
+    const yVal = e.clientY - rect.top - rect.height / 2;
+    mouseX.set(xVal);
+    mouseY.set(yVal);
+  };
+
+  const handleMouseLeave = () => {
+    animate(mouseX, 0, { duration: 0.5 });
+    animate(mouseY, 0, { duration: 0.5 });
+  };
+
   return (
-    <section id="waitlist" className="py-24 scroll-mt-24">
-      <div className="max-w-7xl mx-auto px-6">
+    <section
+      id="waitlist"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="py-24 scroll-mt-24 relative overflow-hidden"
+    >
+      {/* Dynamic 3D Ambient Backdrop Shadow */}
+      <motion.div
+        style={{ x: shadowX, y: shadowY }}
+        className="absolute top-1/3 left-1/3 w-[380px] h-[380px] rounded-full bg-primary/6 dark:bg-primary/3 blur-[130px] z-0 pointer-events-none select-none"
+      />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div
           className="rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden text-[--color-text-pri] border border-[--color-border] bg-gradient-to-br from-[--color-surface-mid] to-[--color-surface-high] shadow-sm"
         >
@@ -28,6 +61,7 @@ export default function FinalCTA() {
               <path d="M0 60 C 40 20 60 20 100 60"  fill="none" stroke="currentColor" strokeWidth="0.5" className="text-[--color-border-strong]" />
             </svg>
           </div>
+          <ParticlesBackground quantity={45} className="opacity-30" />
  
           <div className="relative z-10 space-y-8 max-w-2xl mx-auto">
             {/* Badge */}
@@ -39,27 +73,27 @@ export default function FinalCTA() {
               style={{ fontFamily: 'var(--font-inter)' }}
             >
               <span className="w-2 h-2 rounded-full bg-primary inline-block animate-[pulse-dot_2s_ease-in-out_infinite]" />
-              Waitlist Live — Secure Your Spot
+              Waitlist Live
             </motion.div>
  
             <motion.h2
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.15 }}
               transition={{ delay: 0.1, duration: 0.7 }}
-              className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl md:text-5xl leading-tight text-[--color-text-pri]"
+              className="font-[family-name:var(--font-manrope)] font-extrabold text-3xl sm:text-4xl md:text-5xl leading-tight text-[--color-text-pri]"
             >
-              Prepare for the Future of Tokenized Finance
+              Be part of Pakistan’s digital asset future.
             </motion.h2>
  
             <motion.p
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.15 }}
               transition={{ delay: 0.18 }}
-              className="text-[--color-text-sec] text-lg leading-relaxed"
+              className="text-[--color-text-sec] text-base sm:text-lg leading-relaxed"
             >
-              Secure your early waitlist spot today. Get first access to conversion tools, live rates, on-chain transfers, and zero service fees at launch.
+              Join the Coinsensei waitlist and get early updates before launch.
             </motion.p>
  
             <AnimatePresence mode="wait">
