@@ -1,116 +1,122 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Icon from '@/components/ui/Icon';
-import Button from '@/components/ui/Button';
-import { APP_LINKS } from '@/lib/constants';
 
 export default function FinalCTA() {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setSubmitted(true);
+  };
+
   return (
-    <section className="py-24">
+    <section id="waitlist" className="py-24 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-6">
         <div
-          className="rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden text-white"
-          style={{ background: 'linear-gradient(135deg, #00687c 0%, #18d8ff 100%)' }}
+          className="rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden text-[--color-text-pri] border border-[--color-border] bg-gradient-to-br from-[--color-surface-mid] to-[--color-surface-high] shadow-sm"
         >
           {/* Background lines */}
           <div className="absolute inset-0 opacity-10 pointer-events-none">
             <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-              <path d="M0 100 C 20 0 50 0 100 100"  fill="none" stroke="white" strokeWidth="0.5" />
-              <path d="M0 80 C 30 10 70 10 100 80"  fill="none" stroke="white" strokeWidth="0.5" />
-              <path d="M0 60 C 40 20 60 20 100 60"  fill="none" stroke="white" strokeWidth="0.5" />
+              <path d="M0 100 C 20 0 50 0 100 100"  fill="none" stroke="currentColor" strokeWidth="0.5" className="text-[--color-border-strong]" />
+              <path d="M0 80 C 30 10 70 10 100 80"  fill="none" stroke="currentColor" strokeWidth="0.5" className="text-[--color-border-strong]" />
+              <path d="M0 60 C 40 20 60 20 100 60"  fill="none" stroke="currentColor" strokeWidth="0.5" className="text-[--color-border-strong]" />
             </svg>
           </div>
-
-          <div className="relative z-10 space-y-8">
+ 
+          <div className="relative z-10 space-y-8 max-w-2xl mx-auto">
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/20 rounded-full text-white font-bold uppercase tracking-widest text-xs"
+              viewport={{ once: false, amount: 0.15 }}
+              className="badge select-none"
               style={{ fontFamily: 'var(--font-inter)' }}
             >
-              <span className="w-2 h-2 rounded-full bg-green-400 inline-block animate-[pulse-dot_2s_ease-in-out_infinite]" />
-              Available Now — Start in Minutes
+              <span className="w-2 h-2 rounded-full bg-primary inline-block animate-[pulse-dot_2s_ease-in-out_infinite]" />
+              Waitlist Live — Secure Your Spot
             </motion.div>
-
+ 
             <motion.h2
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.15 }}
               transition={{ delay: 0.1, duration: 0.7 }}
-              className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl md:text-5xl leading-tight"
+              className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl md:text-5xl leading-tight text-[--color-text-pri]"
             >
-              Stop Risking Your Crypto.<br />
-              Start Trading with Certainty.
+              Prepare for the Future of Tokenized Finance
             </motion.h2>
-
+ 
             <motion.p
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.15 }}
               transition={{ delay: 0.18 }}
-              className="text-white/80 text-lg max-w-xl mx-auto leading-relaxed"
+              className="text-[--color-text-sec] text-lg leading-relaxed"
             >
-              Join 5,000+ Pakistani traders who sell USDT safely and reliably.
-              Guaranteed payment. Zero scam risk. All in one app.
+              Secure your early waitlist spot today. Get first access to conversion tools, live rates, on-chain transfers, and zero service fees at launch.
             </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.26 }}
-              className="flex flex-col md:flex-row items-center justify-center gap-4 pt-2"
-            >
-              {/* App Store */}
-              <a
-                href={APP_LINKS.ios}
-                className="flex items-center gap-3 bg-white text-[--color-text-pri] px-8 py-4 rounded-xl font-bold text-base shadow-xl hover:shadow-2xl transition-all hover:-translate-y-0.5 active:scale-97"
-              >
-                <Icon name="phone_iphone" filled size={22} className="text-[--color-text-pri]" />
-                <div className="text-left">
-                  <div className="text-[10px] uppercase tracking-widest opacity-50 leading-none mb-0.5" style={{ fontFamily: 'var(--font-inter)' }}>
-                    Download on
+ 
+            <AnimatePresence mode="wait">
+              {!submitted ? (
+                <motion.form
+                  key="waitlist-form"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.25 }}
+                  onSubmit={handleSubmit}
+                  className="flex flex-col sm:flex-row gap-3 pt-4 max-w-md mx-auto"
+                >
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="flex-1 bg-[--input-bg] text-[--color-text-pri] border border-[--input-border] rounded-xl px-5 py-4 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all select-all"
+                  />
+                  <button
+                    type="submit"
+                    className="btn-primary px-8 py-4 rounded-xl font-bold text-base shadow-lg transition-transform active:scale-97 cursor-pointer whitespace-nowrap shrink-0 flex items-center justify-center gap-2"
+                  >
+                    Join Waitlist
+                    <Icon name="mail" size={20} className="text-white" />
+                  </button>
+                </motion.form>
+              ) : (
+                <motion.div
+                  key="waitlist-success"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 120, damping: 14 }}
+                  className="p-8 rounded-2xl border border-primary/20 bg-primary/5 text-center space-y-3 max-w-md mx-auto"
+                >
+                  <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-2">
+                    <Icon name="check_circle" filled size={26} className="text-primary" />
                   </div>
-                  <div className="text-sm font-bold leading-none">App Store</div>
-                </div>
-              </a>
-
-              {/* Google Play */}
-              <a
-                href={APP_LINKS.android}
-                className="flex items-center gap-3 bg-white text-[--color-text-pri] px-8 py-4 rounded-xl font-bold text-base shadow-xl hover:shadow-2xl transition-all hover:-translate-y-0.5 active:scale-97"
-              >
-                <Icon name="android" filled size={22} className="text-[--color-text-pri]" />
-                <div className="text-left">
-                  <div className="text-[10px] uppercase tracking-widest opacity-50 leading-none mb-0.5" style={{ fontFamily: 'var(--font-inter)' }}>
-                    Get it on
-                  </div>
-                  <div className="text-sm font-bold leading-none">Google Play</div>
-                </div>
-              </a>
-
-              {/* Web App */}
-              <a
-                href={APP_LINKS.web}
-                className="flex items-center gap-3 bg-white/15 text-white border border-white/30 px-8 py-4 rounded-xl font-bold text-base backdrop-blur hover:bg-white/25 transition-all active:scale-97"
-              >
-                <Icon name="open_in_new" size={20} className="text-white" />
-                Open Web App
-              </a>
-            </motion.div>
-
+                  <h4 className="font-bold text-lg text-[--color-text-pri]">You are on the list!</h4>
+                  <p className="text-sm text-[--color-text-sec] leading-relaxed">
+                    Thank you for registering. You are <span className="text-primary font-bold">#12,841</span> in line. We will email you your early invite codes soon.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+ 
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.15 }}
               transition={{ delay: 0.4 }}
-              className="text-white/50 text-sm"
+              className="text-[--color-text-muted] text-xs font-semibold"
               style={{ fontFamily: 'var(--font-inter)' }}
             >
-              Guaranteed payment on every trade. Start immediately.
+              Launching soon on Android and iOS. Your privacy is fully protected.
             </motion.p>
           </div>
         </div>

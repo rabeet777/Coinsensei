@@ -5,9 +5,9 @@ import Icon from '@/components/ui/Icon';
 import { COMPARISON_ROWS } from '@/lib/constants';
 
 function Cell({ value }: { value: boolean | null }) {
-  if (value === true)  return <Icon name="check_circle" filled size={22} className="text-green-500 mx-auto" />;
-  if (value === false) return <Icon name="cancel"       filled size={22} className="text-red-400   mx-auto" />;
-  return                      <Icon name="remove_circle" filled size={22} className="text-amber-400 mx-auto" />;
+  if (value === true)  return <Icon name="check_circle" filled size={22} className="text-[--color-primary] mx-auto" />;
+  if (value === false) return <Icon name="cancel"       filled size={22} className="text-[--color-text-muted] mx-auto" />;
+  return                      <Icon name="remove_circle" filled size={22} className="text-[--color-text-muted] mx-auto" />;
 }
 
 export default function WhyChoose() {
@@ -19,7 +19,7 @@ export default function WhyChoose() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.15 }}
             className="badge w-fit mx-auto mb-4"
           >
             Why CoinSensei
@@ -27,7 +27,7 @@ export default function WhyChoose() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.15 }}
             transition={{ delay: 0.08 }}
             className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl text-[--color-text-pri] mb-4"
           >
@@ -36,11 +36,11 @@ export default function WhyChoose() {
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.15 }}
             transition={{ delay: 0.14 }}
             className="text-[--color-text-sec] max-w-xl mx-auto leading-relaxed"
           >
-            See how CoinSensei compares to the alternatives Pakistani crypto traders currently use.
+            See how CoinSensei compares to the alternatives Pakistani virtual asset users currently use.
           </motion.p>
         </div>
 
@@ -48,9 +48,9 @@ export default function WhyChoose() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.15 }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-[2rem] border border-[--color-border] overflow-hidden shadow-sm mb-10"
+          className="bg-[--color-surface-card] rounded-[2rem] border border-[--color-border] overflow-hidden shadow-sm mb-10"
         >
           {/* Table header */}
           <div className="grid grid-cols-4 bg-[--color-surface-mid] px-6 py-4 text-center text-xs font-bold uppercase tracking-widest text-[--color-text-muted]" style={{ fontFamily: 'var(--font-inter)' }}>
@@ -80,8 +80,8 @@ export default function WhyChoose() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-white p-8 rounded-[2rem] border border-[--color-border]"
+            viewport={{ once: false, amount: 0.15 }}
+            className="feature-card p-8"
           >
             <h4 className="font-[family-name:var(--font-manrope)] font-bold text-xl text-[--color-text-pri] mb-4 flex items-center gap-2">
               <Icon name="public" filled size={22} className="text-[--color-primary]" />
@@ -96,8 +96,8 @@ export default function WhyChoose() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-white p-8 rounded-[2rem] border border-[--color-border]"
+            viewport={{ once: false, amount: 0.15 }}
+            className="feature-card p-8"
           >
             <h4 className="font-[family-name:var(--font-manrope)] font-bold text-xl text-[--color-text-pri] mb-4 flex items-center gap-2">
               <Icon name="handshake" filled size={22} className="text-[--color-primary]" />

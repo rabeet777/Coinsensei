@@ -6,9 +6,9 @@ const COLS = [
   {
     heading: 'Services',
     links: [
-      { label: 'USDT to PKR',  href: '#' },
-      { label: 'Bulk Exchange', href: '#' },
-      { label: 'Live Rates',   href: '#' },
+      { label: 'Virtual Assets Access', href: '#features' },
+      { label: 'On-Chain Transfers',   href: '#features' },
+      { label: 'Waitlist SignUp',      href: '#waitlist' },
     ],
   },
   {
@@ -23,7 +23,7 @@ const COLS = [
     heading: 'Legal',
     links: [
       { label: 'Terms of Service', href: '#' },
-      { label: 'Privacy Policy',   href: '#' },
+      { label: 'Privacy Policy',   href: '/privacy-policy' },
       { label: 'Risk Disclosure',  href: '#' },
       { label: 'AML Policy',       href: '#' },
     ],
@@ -46,30 +46,28 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-[--color-text-muted] leading-relaxed">
-              Pakistan&apos;s most trusted USDT to PKR exchange. Guaranteed payment. Zero scam risk.
+              Pakistan&apos;s secure gateway to virtual assets. Join the waitlist to secure your early access.
             </p>
             {/* App badges */}
-            <div className="flex gap-3">
-              <Link
-                href={APP_LINKS.ios}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[--color-text-pri] text-white hover:opacity-80 transition-opacity"
+            <div className="flex flex-wrap gap-3">
+              <div
+                className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[--color-surface-high] text-[--color-text-muted] border border-[--color-border] select-none"
               >
-                <Icon name="phone_iphone" size={16} className="text-white" />
+                <Icon name="phone_iphone" size={16} className="text-[--color-text-muted]" />
                 <div>
-                  <div className="text-[9px] uppercase font-semibold opacity-60 leading-none mb-0.5">Download on</div>
-                  <div className="text-xs font-bold leading-none">App Store</div>
+                  <div className="text-[9px] uppercase font-semibold opacity-60 leading-none mb-0.5">App Store</div>
+                  <div className="text-xs font-bold leading-none">Coming Soon</div>
                 </div>
-              </Link>
-              <Link
-                href={APP_LINKS.android}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[--color-text-pri] text-white hover:opacity-80 transition-opacity"
+              </div>
+              <div
+                className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[--color-surface-high] text-[--color-text-muted] border border-[--color-border] select-none"
               >
-                <Icon name="android" size={16} className="text-white" />
+                <Icon name="android" size={16} className="text-[--color-text-muted]" />
                 <div>
-                  <div className="text-[9px] uppercase font-semibold opacity-60 leading-none mb-0.5">Get it on</div>
-                  <div className="text-xs font-bold leading-none">Google Play</div>
+                  <div className="text-[9px] uppercase font-semibold opacity-60 leading-none mb-0.5">Google Play</div>
+                  <div className="text-xs font-bold leading-none">Coming Soon</div>
                 </div>
-              </Link>
+              </div>
             </div>
           </div>
 
@@ -99,10 +97,10 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-[--color-border] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-[--color-text-muted] uppercase tracking-widest" style={{ fontFamily: 'var(--font-inter)' }}>
-            © 2025 CoinSensei. Pakistan&apos;s Trusted USDT Exchange.
+            © 2026 CoinSensei. Digitalizing Pakistan&apos;s Virtual Asset Future.
           </p>
           <p className="text-xs text-[--color-text-muted]" style={{ fontFamily: 'var(--font-inter)' }}>
-            All transactions are protected by our payment guarantee.
+            Preparing Pakistan for a tokenized financial future.
           </p>
         </div>
       </div>

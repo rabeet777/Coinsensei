@@ -12,7 +12,7 @@ export default function ProductPreview() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.15 }}
             className="badge w-fit mx-auto mb-4"
           >
             Proven Track Record
@@ -20,7 +20,7 @@ export default function ProductPreview() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.15 }}
             transition={{ delay: 0.08 }}
             className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl text-[--color-text-pri]"
           >
@@ -35,11 +35,11 @@ export default function ProductPreview() {
               key={s.label}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.15 }}
               transition={{ delay: i * 0.08 }}
-              className="text-center p-8 rounded-[2rem] bg-[--color-surface-mid] border border-[--color-border]"
+              className="feature-card text-center p-8 bg-[--color-surface-mid]"
             >
-              <div className={`font-[family-name:var(--font-manrope)] font-extrabold text-4xl mb-2 ${s.label === 'Scam Reports' ? 'text-green-600' : 'text-[--color-primary]'}`}>
+              <div className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl mb-2 text-[--color-primary]">
                 {s.value}
               </div>
               <div className="text-xs uppercase tracking-widest text-[--color-text-muted]" style={{ fontFamily: 'var(--font-inter)' }}>
@@ -56,11 +56,11 @@ export default function ProductPreview() {
               key={t.name}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.15 }}
               transition={{ delay: i * 0.1, duration: 0.55 }}
               className="feature-card p-8 flex flex-col"
             >
-              <div className="text-amber-400 text-lg mb-4 tracking-widest">★★★★★</div>
+              <div className="text-[--color-primary] text-lg mb-4 tracking-widest">★★★★★</div>
               <p className="text-[--color-text-sec] leading-relaxed mb-6 flex-1 text-sm italic">
                 {t.quote}
               </p>
