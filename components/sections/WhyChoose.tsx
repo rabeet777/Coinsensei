@@ -6,12 +6,12 @@ import Icon from '@/components/ui/Icon';
 import { COMPARISON_ROWS } from '@/lib/constants';
 
 const FEATURE_DESCRIPTIONS: Record<string, string> = {
-  'On-Chain Asset Access': 'Hold and transfer assets directly on public blockchains',
+  'On-Chain Crypto Access': 'Hold and transfer crypto directly on public blockchains',
   'No Bank Hold/Freeze Risks': 'Avoid third-party P2P bank account restrictions',
   'Regulated Custody Gateway': 'Audited framework under SECP guidelines',
   'Urdu Live Support': '24/7 dedicated in-app support in Urdu & English',
   'Direct PKR Settlements': 'Instant bank transfers without intermediary risk',
-  'Tokenized Finance Access': 'Fractional ownership of future digital assets',
+  'Future Digital Assets': 'Early access to fractional investment in modern digital assets',
 };
 
 function Cell({ value, isCS = false }: { value: boolean | null; isCS?: boolean }) {
@@ -102,7 +102,7 @@ export default function WhyChoose() {
             transition={{ delay: 0.14 }}
             className="text-[--color-text-sec] max-w-xl mx-auto leading-relaxed"
           >
-            See how CoinSensei compares to the alternatives Pakistani virtual asset users currently use.
+            See how CoinSensei compares to informal P2P markets. Whether you want to buy USDT or sell bitcoin in Pakistan, CoinSensei provides the safest trading experience.
           </motion.p>
         </div>
 

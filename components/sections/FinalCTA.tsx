@@ -49,7 +49,7 @@ export default function FinalCTA() {
               transition={{ delay: 0.1, duration: 0.7 }}
               className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl md:text-5xl leading-tight text-[--color-text-pri]"
             >
-              Prepare for the Future of Tokenized Finance
+              Trade Crypto. Trust the Process.
             </motion.h2>
  
             <motion.p
@@ -59,7 +59,7 @@ export default function FinalCTA() {
               transition={{ delay: 0.18 }}
               className="text-[--color-text-sec] text-lg leading-relaxed"
             >
-              Secure your early waitlist spot today. Get first access to conversion tools, live rates, on-chain transfers, and zero service fees at launch.
+              Get early access to Pakistan's safest crypto platform. Convert PKR to USDT with zero bank freezes, no scams, and absolute peace of mind.
             </motion.p>
  
             <AnimatePresence mode="wait">

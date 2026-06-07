@@ -8,14 +8,14 @@ const PROBLEMS = [
   'Limited global connectivity with traditional fiat-only channels',
   'Informal P2P networks exposing users to high scam risks and freezes',
   'Lack of compliant, transparent gateways for local settlements',
-  'Siloed financial systems offering zero access to tokenization',
+  'Formal banking channels locking you out of crypto opportunities',
 ];
 
 const SOLUTIONS = [
   'Seamless integration with global digital finance systems',
   'A registered corporate portal ensuring clean PKR and safety',
   'Verifiable on-chain transfers with multi-sig custody protection',
-  'Simple tools to access virtual assets and stable digital value',
+  'Simple tools to access crypto and stable digital value',
 ];
 
 const fadeUp = (delay = 0) => ({
@@ -90,11 +90,11 @@ export default function WhatIsCoinsensei() {
             </motion.h2>
 
             <motion.p {...fadeUp(0.15)} className="text-lg text-[--color-text-sec] leading-relaxed font-medium">
-              Pakistan’s financial future is becoming more digital, global, and asset-backed. Coinsensei is here to help users participate in this shift through a simple mobile platform designed for virtual asset access, conversion, and transfers.
+              Pakistan’s financial future is becoming more digital, global, and crypto-oriented. Coinsensei is here to help you buy crypto in Pakistan, providing a secure crypto exchange in Pakistan with transparent USDT to PKR rates, and clean banking integration.
             </motion.p>
 
             <motion.p {...fadeUp(0.2)} className="text-[--color-text-sec] leading-relaxed">
-              We are building a bridge to global connectivity and stable digital value. By introducing compliant on-chain transfers and preparing for the tokenization of assets, we enable secure financial accessibility for all Pakistanis.
+              We are building a bridge to global connectivity and stable digital value. By introducing compliant on-chain transfers and preparing for a digital financial future, we enable secure financial accessibility for all Pakistanis.
             </motion.p>
 
             <motion.div {...fadeUp(0.25)}>

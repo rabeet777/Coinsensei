@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Manrope, Inter } from 'next/font/google';
+import WhatsAppButton from '@/components/ui/WhatsAppButton';
 import './globals.css';
 
 const manrope = Manrope({
@@ -17,13 +18,27 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "CoinSensei — Digitalizing Pakistan's Virtual Asset Future",
+  title: "CoinSensei — Pakistan's Trusted Crypto Platform",
   description:
-    "Secure, simple, and modern platform for virtual assets in Pakistan. Join the waitlist for seamless PKR & USDT conversions, live rates, and compliant on-chain transfers.",
-  keywords: ['CoinSensei', 'Virtual Assets Pakistan', 'USDT', 'PKR', 'On-chain transfers', 'Tokenized finance', 'Pakistan Web3'],
+    "Secure, simple, and modern platform for crypto in Pakistan. Join the waitlist for seamless PKR & USDT conversions, live rates, and compliant on-chain transfers.",
+  keywords: [
+    'CoinSensei',
+    'buy crypto Pakistan',
+    'USDT to PKR',
+    'sell bitcoin Pakistan',
+    'crypto exchange Pakistan',
+    'safe crypto trading Pakistan',
+    'buy USDT easypaisa',
+    'crypto jazzcash',
+    'Crypto Pakistan',
+    'USDT',
+    'PKR',
+    'On-chain transfers',
+    'Pakistan Web3'
+  ],
   openGraph: {
-    title: "CoinSensei — Digitalizing Pakistan's Virtual Asset Future",
-    description: 'Secure, simple, and modern platform for virtual assets in Pakistan. Join the waitlist today.',
+    title: "CoinSensei — Pakistan's Trusted Crypto Platform",
+    description: 'Secure, simple, and modern platform for crypto in Pakistan. Join the waitlist today.',
     type: 'website',
     locale: 'en_PK',
   },
@@ -60,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen flex flex-col antialiased bg-[--color-surface] text-[--color-text-pri]">
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   );

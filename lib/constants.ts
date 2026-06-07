@@ -5,6 +5,7 @@ export const NAV_LINKS = [
   { label: 'How It Works', href: '/#how-it-works' },
   { label: 'Security',     href: '/#security' },
   { label: 'Why Us',       href: '/#why-us' },
+  { label: 'Blog',         href: '/blog' },
 ] as const;
 
 // ── Exchange Rate (update this from your API in production) ─
@@ -20,7 +21,7 @@ export const TRUST_BADGES = [
 
 // ── Stats (hero + product preview) ────────────────────────
 export const STATS = [
-  { value: '10,000+', label: 'Waitlist Spots' },
+  { value: '14,250+', label: 'Users on the Waitlist' },
   { value: '0%',      label: 'Hidden Fees'     },
   { value: '256-bit', label: 'AES Encryption'  },
   { value: 'Instant', label: 'On-Chain Transfer' },
@@ -49,12 +50,12 @@ export const FEATURES = [
   {
     icon: 'dashboard_customize',
     title: 'On-Chain Transfers',
-    desc: 'Move funds across networks securely. Coinsensei supports major virtual asset transfer protocols with low transaction fees.',
+    desc: 'Move funds across networks securely. Coinsensei supports major crypto transfer protocols with low transaction fees.',
   },
   {
     icon: 'partner_exchange',
-    title: 'Preparation for Tokenization',
-    desc: 'Step into the future of global finance. Learn, trade, and prepare for tokenized asset ownership in Pakistan.',
+    title: 'Future Digital Assets',
+    desc: 'Step into the future of global finance. Learn, trade, and prepare for modern digital asset opportunities in Pakistan.',
   },
   {
     icon: 'support_agent',
@@ -74,7 +75,7 @@ export const STEPS = [
     n: 1,
     icon: 'mail',
     title: 'Join the Waitlist',
-    desc: 'Register with your email to lock in your early position on Pakistan’s premier virtual asset gateway.',
+    desc: 'Register with your email to lock in your early position on Pakistan’s premier crypto gateway.',
   },
   {
     n: 2,
@@ -85,8 +86,8 @@ export const STEPS = [
   {
     n: 3,
     icon: 'currency_exchange',
-    title: 'Access Virtual Assets',
-    desc: 'Start converting PKR/USDT, transferring on-chain, and preparing for the tokenized future.',
+    title: 'Access Crypto',
+    desc: 'Start converting PKR/USDT, transferring on-chain, and preparing for a digital future.',
   },
 ] as const;
 
@@ -121,7 +122,7 @@ export const SECURITY_FEATURES = [
   {
     icon: 'verified_user',
     title: 'Multi-Sig Escrow Custody',
-    desc: 'Your virtual assets are protected by advanced multi-signature cold storage. We never hold your PKR and settle directly.',
+    desc: 'Your crypto assets are protected by advanced multi-signature cold storage. We never hold your PKR and settle directly.',
   },
   {
     icon: 'business',
@@ -164,12 +165,12 @@ export const TESTIMONIALS = [
 
 // ── Why Choose comparison ──────────────────────────────────
 export const COMPARISON_ROWS = [
-  { feature: 'On-Chain Asset Access',     cs: true,  p2p: false, otc: null  },
+  { feature: 'On-Chain Crypto Access',     cs: true,  p2p: false, otc: null  },
   { feature: 'No Bank Hold/Freeze Risks',  cs: true,  p2p: false, otc: null  },
   { feature: 'Regulated Custody Gateway',  cs: true,  p2p: false, otc: false },
   { feature: 'Urdu Live Support',          cs: true,  p2p: false, otc: false },
   { feature: 'Direct PKR Settlements',     cs: true,  p2p: true,  otc: null  },
-  { feature: 'Tokenized Finance Access',   cs: true,  p2p: false, otc: false },
+  { feature: 'Future Digital Assets',     cs: true,  p2p: false, otc: false },
 ] as const;
 
 // ── App Store Links ────────────────────────────────────────

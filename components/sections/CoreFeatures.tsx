@@ -34,7 +34,7 @@ export default function CoreFeatures() {
             transition={{ delay: 0.14 }}
             className="text-[--color-text-sec] max-w-xl mx-auto leading-relaxed"
           >
-            Built specifically to solve the problems Pakistani virtual asset users face every day.
+            Built specifically to solve the problems Pakistani crypto users face every day.
           </motion.p>
         </div>
 

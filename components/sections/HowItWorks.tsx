@@ -26,7 +26,7 @@ export default function HowItWorks() {
             transition={{ delay: 0.08 }}
             className="font-[family-name:var(--font-manrope)] font-extrabold text-4xl text-[--color-text-pri] mb-4"
           >
-            Access Virtual Assets in 3 Simple Steps
+            Access Crypto in 3 Simple Steps
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -35,7 +35,7 @@ export default function HowItWorks() {
             transition={{ delay: 0.14 }}
             className="text-[--color-text-sec] max-w-xl mx-auto"
           >
-            Secure your position today to experience compliant, secure digital asset access.
+            Join the waitlist today to experience safe crypto trading in Pakistan, supporting direct local transfers and PKR payments.
           </motion.p>
         </div>
 

@@ -6,9 +6,11 @@ import WhatIsCoinsensei from '@/components/sections/WhatIsCoinsensei';
 import CoreFeatures    from '@/components/sections/CoreFeatures';
 import HowItWorks      from '@/components/sections/HowItWorks';
 import SupportedBanks  from '@/components/sections/SupportedBanks';
+import ProductShowcase from '@/components/sections/ProductShowcase';
 import SecuritySection from '@/components/sections/SecuritySection';
 import ProductPreview  from '@/components/sections/ProductPreview';
 import WhyChoose       from '@/components/sections/WhyChoose';
+import FAQ             from '@/components/sections/FAQ';
 import FinalCTA        from '@/components/sections/FinalCTA';
 
 export default function Home() {
@@ -31,25 +33,23 @@ export default function Home() {
         <TrustStrip />
         {/* 3. What is CoinSensei */}
         <WhatIsCoinsensei />
-        {/* divider */}
-        <hr className="divider-glow" />
         {/* 4. Core Features */}
         <CoreFeatures />
-        {/* divider */}
-        <hr className="divider-glow" />
         {/* 5. How It Works */}
         <HowItWorks />
-        {/* 6. Supported Banks slider */}
+        {/* 6. Supported Banks */}
         <SupportedBanks />
-        {/* 6. Security */}
+        {/* 7. App Showcase */}
+        <ProductShowcase />
+        {/* 8. Security */}
         <SecuritySection />
-        {/* 7. Product Preview — Stats & Testimonials */}
+        {/* 9. Product Preview — Stats & Testimonials */}
         <ProductPreview />
-        {/* divider */}
-        <hr className="divider-glow" />
-        {/* 8. Why Choose */}
+        {/* 10. Why Choose */}
         <WhyChoose />
-        {/* 9. Final CTA */}
+        {/* 11. FAQ */}
+        <FAQ />
+        {/* 12. Final CTA */}
         <FinalCTA />
       </main>
       <Footer />

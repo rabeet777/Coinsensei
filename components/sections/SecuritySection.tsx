@@ -16,7 +16,7 @@ export default function SecuritySection() {
   return (
     <section
       id="security"
-      className="section-py text-[--color-text-pri] bg-gradient-to-br from-[--color-surface-mid] to-[--color-surface] border-y border-[--color-border] overflow-hidden relative"
+      className="section-py text-[--color-text-pri] bg-gradient-to-br from-[--color-surface-mid] to-[--color-surface] overflow-hidden relative"
     >
       {/* Decorative blobs */}
       <div className="absolute right-0 top-0 w-1/2 h-full opacity-5 pointer-events-none text-[--color-primary]">
@@ -110,13 +110,13 @@ export default function SecuritySection() {
                 ease: 'easeInOut'
               }
             }}
-            className="relative z-10 w-[240px] sm:w-[280px] filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.22)] dark:drop-shadow-[0_25px_50px_rgba(0,216,255,0.14)] cursor-pointer"
+            className="relative z-10 w-[240px] sm:w-[280px] filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.4)] cursor-pointer"
             style={{ transformStyle: 'preserve-3d' }}
           >
             <img 
               src="/mobileimage2.png" 
               alt="CoinSensei Security App Mockup" 
-              className="w-full h-auto object-cover" 
+              className="w-full h-auto object-contain" 
               loading="lazy"
             />
           </motion.div>

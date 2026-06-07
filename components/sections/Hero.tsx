@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Icon from '@/components/ui/Icon';
 import Button from '@/components/ui/Button';
@@ -45,7 +46,7 @@ function AppShowcase() {
         <img 
           src="/mobileImage1.png" 
           alt="CoinSensei App Screen Mockup" 
-          className="w-full h-auto object-cover" 
+          className="w-full h-auto object-contain" 
           loading="eager"
         />
       </motion.div>
@@ -54,6 +55,29 @@ function AppShowcase() {
 }
 
 export default function Hero() {
+  const [liveRate, setLiveRate] = useState(297.45);
+  const [secondsAgo, setSecondsAgo] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSecondsAgo((prev) => prev + 1);
+    }, 1000);
+
+    const rateInterval = setInterval(() => {
+      setLiveRate((prev) => {
+        const delta = (Math.random() - 0.5) * 0.12;
+        const nextRate = prev + delta;
+        return Math.max(297.10, Math.min(297.90, nextRate));
+      });
+      setSecondsAgo(0);
+    }, 15000);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(rateInterval);
+    };
+  }, []);
+
   return (
     <section
       id="hero"
@@ -81,7 +105,7 @@ export default function Hero() {
           >
             <div className="badge w-fit select-none">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-[pulse-dot_2s_ease-in-out_infinite]" />
-              Digitalizing Pakistan’s Access to Virtual Assets
+              Pakistan ka apna crypto platform
             </div>
           </motion.div>
 
@@ -92,7 +116,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="font-[family-name:var(--font-manrope)] font-extrabold text-5xl md:text-6xl leading-[1.08] tracking-tight text-[--color-text-pri]"
           >
-            Digitalizing Pakistan’s <span className="gradient-text">Virtual Asset</span> Future
+            Convert PKR to USDT <span className="gradient-text">safely</span> — no bank freezes, no scams
           </motion.h1>
 
           {/* Subheading */}
@@ -102,8 +126,28 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.22 }}
             className="text-lg text-[--color-text-sec] max-w-lg leading-relaxed"
           >
-            Secure, simple, and modern platform for virtual assets. Starting with seamless PKR and USDT conversion, live rates, and on-chain transfers.
+            Pakistan's first crypto platform built for peace of mind. Buy, sell, and transfer crypto assets with zero hassle, transparent live rates, and complete protection.
           </motion.p>
+
+          {/* Live Rate Ticker */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.28 }}
+            className="flex items-center gap-3 bg-white/[0.03] dark:bg-white/[0.015] border border-white/10 dark:border-white/5 px-4 py-2 rounded-2xl w-fit shadow-md select-none"
+          >
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-[pulse-dot_1.5s_infinite]" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[--color-text-muted]" style={{ fontFamily: 'var(--font-inter)' }}>Live Rate</span>
+            </div>
+            <div className="h-4 w-px bg-white/10" />
+            <div className="flex items-baseline gap-1">
+              <span className="text-xs font-bold text-[--color-text-sec]" style={{ fontFamily: 'var(--font-manrope)' }}>1 USDT ≈</span>
+              <span className="text-base font-black text-primary" style={{ fontFamily: 'var(--font-manrope)' }}>{liveRate.toFixed(2)} PKR</span>
+            </div>
+            <div className="h-4 w-px bg-white/10" />
+            <span className="text-[9px] font-medium text-[--color-text-muted]">Updated {secondsAgo}s ago</span>
+          </motion.div>
 
           {/* Trust badges */}
           <motion.div
@@ -134,6 +178,31 @@ export default function Hero() {
             <Button variant="outline" size="lg" href="#features">
               Explore Coinsensei
             </Button>
+          </motion.div>
+
+          {/* Mobile Wallets Prominent Callout */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.48 }}
+            className="flex items-center gap-3.5 bg-primary/5 border border-primary/20 p-4 rounded-2xl max-w-lg shadow-sm backdrop-blur-md"
+          >
+            <div className="flex gap-2 shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-sm">
+                <img src="/bank-logos/easypaisa.png" alt="Easypaisa" className="w-full h-full object-contain" />
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-sm">
+                <img src="/bank-logos/jazzcash.png" alt="JazzCash" className="w-full h-full object-contain" />
+              </div>
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="text-sm font-bold text-[--color-text-pri]" style={{ fontFamily: 'var(--font-manrope)' }}>
+                Works with JazzCash & Easypaisa
+              </span>
+              <span className="text-xs text-[--color-text-sec]">
+                No traditional bank account needed for immediate PKR settlement.
+              </span>
+            </div>
           </motion.div>
 
           {/* Trust Launch Line */}
