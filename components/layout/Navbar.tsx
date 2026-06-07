@@ -31,7 +31,7 @@ export default function Navbar() {
         className={[
           'fixed inset-x-0 top-0 z-50 h-[72px] flex items-center transition-all duration-300',
           scrolled
-            ? 'bg-surface/80 backdrop-blur-xl border-b border-[--color-border] shadow-sm'
+            ? 'bg-surface/80 backdrop-blur-xl shadow-sm'
             : 'bg-transparent',
         ].join(' ')}
       >
