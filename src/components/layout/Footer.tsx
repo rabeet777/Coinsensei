@@ -98,6 +98,12 @@ export function Footer() {
               >
                 Privacy Policy
               </Link>
+              <Link
+                href="/delete-account"
+                className="text-xs text-muted transition-colors hover:text-brand"
+              >
+                Delete Account
+              </Link>
             </nav>
           </div>
         </div>
