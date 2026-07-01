@@ -26,6 +26,7 @@ export function PageHeader({ eyebrow, title, intro }: PageHeaderProps) {
     "/faq": "07",
     "/contact": "08",
     "/privacy-policy": "09",
+    "/delete-account": "10",
   };
   const index = LEDGER[pathname] ?? "01";
   return (
