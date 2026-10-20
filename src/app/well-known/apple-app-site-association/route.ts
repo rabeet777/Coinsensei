@@ -9,8 +9,8 @@ import { NextResponse } from "next/server";
  * no redirects. `NextResponse.json` sets the content type correctly, which is
  * the usual reason a hand-hosted AASA file silently fails.
  *
- * Scoped to `/r/*` only, so the existing password-reset bridge flow is
- * untouched.
+ * Scoped to the two paths the app claims: referral invites and the password
+ * reset bridge. Everything else on the site stays in the browser.
  *
  * Override in Vercel if the Apple Team ID or bundle changes:
  *   APPLE_TEAM_ID       e.g. 3C9NB84GW7
@@ -38,6 +38,14 @@ export function GET() {
               {
                 "/": "/r/*",
                 comment: "Referral invite links open directly in the Coinsensei app",
+              },
+              {
+                "/": "/reset-password",
+                comment: "Supabase password recovery links open the in-app reset screen",
+              },
+              {
+                "/": "/reset-password?*",
+                comment: "PKCE recovery links carry ?code= in the query string",
               },
             ],
           },
